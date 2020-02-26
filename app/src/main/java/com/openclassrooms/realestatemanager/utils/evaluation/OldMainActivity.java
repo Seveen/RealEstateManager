@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.evaluation;
+package com.openclassrooms.realestatemanager.utils.evaluation;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
