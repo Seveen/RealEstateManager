@@ -33,7 +33,7 @@ public class Utils {
      * @return
      */
     public static int convertEuroToDollar(int euros){
-        return (int) Math.round(euros * 1.232);
+        return (int) Math.round(euros * (1.0 / 0.812));
     }
 
     /**
@@ -57,6 +57,6 @@ public class Utils {
 
         //TODO: deprecated?
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return activeNetwork != null && activeNetwork.isConnected();
     }
 }
