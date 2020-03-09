@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxrelay2.PublishRelay
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.app.ViewModelFactory
+import com.openclassrooms.realestatemanager.mvibase.MviView
 import com.openclassrooms.realestatemanager.utils.visible
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_all_realty.*
 import kotlinx.android.synthetic.main.fragment_all_realty.view.*
 
 
-class AllRealtyFragment : Fragment() {
+class AllRealtyFragment : Fragment(), MviView<AllRealtyIntent, AllRealtyViewState> {
 
     private val intentsRelay = PublishRelay.create<AllRealtyIntent>()
     private val disposables = CompositeDisposable()
@@ -39,12 +40,14 @@ class AllRealtyFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        return inflater.inflate(R.layout.fragment_all_realty, container, false).also {
-            it.allRealtyRecyclerView.apply {
-                layoutManager = LinearLayoutManager(this@AllRealtyFragment.context)
-                adapter = this@AllRealtyFragment.adapter
-            }
-        }
+        return inflater
+                .inflate(R.layout.fragment_all_realty, container, false)
+                .also { view ->
+                    view.allRealtyRecyclerView.apply {
+                        layoutManager = LinearLayoutManager(this@AllRealtyFragment.context)
+                        adapter = this@AllRealtyFragment.adapter
+                    }
+                }
     }
 
     override fun onStart() {
@@ -62,12 +65,12 @@ class AllRealtyFragment : Fragment() {
         viewModel.processIntents(intents())
     }
 
-    private fun intents(): Observable<AllRealtyIntent> = Observable.merge(
+    override fun intents(): Observable<AllRealtyIntent> = Observable.merge(
             Observable.just(AllRealtyIntent.LoadAllRealtyIntent),
             intentsRelay
     )
 
-    private fun render(state: AllRealtyViewState) {
+     override fun render(state: AllRealtyViewState) {
         progressBar.visible = state.isLoading
 
         when (state.realty.isEmpty()) {

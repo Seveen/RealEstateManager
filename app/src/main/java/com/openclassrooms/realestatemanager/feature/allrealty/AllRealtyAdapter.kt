@@ -40,7 +40,6 @@ class AllRealtyAdapter(startingData: List<Realty>, private val onClick: (Realty)
     }
 }
 
-
 @BindingAdapter("priceText")
 fun setPriceText(view: TextView, price: Double) {
     view.text = "$${price}"

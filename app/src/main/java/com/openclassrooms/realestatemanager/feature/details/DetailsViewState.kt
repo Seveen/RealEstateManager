@@ -1,17 +1,17 @@
-package com.openclassrooms.realestatemanager.feature.allrealty
+package com.openclassrooms.realestatemanager.feature.details
 
 import com.openclassrooms.realestatemanager.data.model.Realty
 import com.openclassrooms.realestatemanager.mvibase.MviViewState
 
-data class AllRealtyViewState(
+data class DetailsViewState(
         val isLoading: Boolean,
-        val realty: List<Realty>,
+        val realty: Realty?,
         val error: Throwable?
-) : MviViewState {
+): MviViewState {
     companion object {
-        fun idle() = AllRealtyViewState(
+        fun idle() = DetailsViewState(
                 isLoading = false,
-                realty = emptyList(),
+                realty = null,
                 error = null
         )
     }

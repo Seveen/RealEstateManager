@@ -36,7 +36,6 @@ class AllRealtyProcessorHolder(
                             .onErrorReturn(NavigateToDetailsResult::Failure)
                             .subscribeOn(schedulerProvider.io())
                             .observeOn(schedulerProvider.ui())
-                            .startWith(NavigateToDetailsResult.Success)
                 }
             }
 

@@ -23,16 +23,12 @@ class AllRealtyViewModel(
         intents.subscribe(intentsRelay)
     }
 
-    override fun states(): Observable<AllRealtyViewState> = compose()
-
-
-    private fun compose(): Observable<AllRealtyViewState> {
-        return intentsRelay
+    override fun states(): Observable<AllRealtyViewState> =
+            intentsRelay
                 .map(::actionFromIntent)
                 .compose(actionProcessorHolder.actionProcessor)
                 .scan(AllRealtyViewState.idle(), reducer)
                 .distinctUntilChanged()
-    }
 
     private fun actionFromIntent(intent: AllRealtyIntent) : AllRealtyAction {
         return when (intent) {
