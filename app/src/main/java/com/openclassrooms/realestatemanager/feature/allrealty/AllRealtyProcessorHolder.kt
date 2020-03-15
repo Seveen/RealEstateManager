@@ -3,9 +3,8 @@ package com.openclassrooms.realestatemanager.feature.allrealty
 import com.openclassrooms.realestatemanager.app.scheduler.BaseSchedulerProvider
 import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
 import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyAction.LoadAllRealtyAction
-import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyAction.NavigateToDetailsAction
 import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyResult.LoadAllRealtyResult
-import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyResult.NavigateToDetailsResult
+import com.openclassrooms.realestatemanager.utils.notOfType
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 
@@ -27,16 +26,9 @@ class AllRealtyProcessorHolder(
                 }
             }
 
-    private val navigateToDetailsProcessor =
-            ObservableTransformer<NavigateToDetailsAction, NavigateToDetailsResult> { actions ->
-                actions.flatMap {
-                    realtyRepository.setCurrentDetailsRealty(it.realty)
-                            .map { NavigateToDetailsResult.Success }
-                            .cast(NavigateToDetailsResult::class.java)
-                            .onErrorReturn(NavigateToDetailsResult::Failure)
-                            .subscribeOn(schedulerProvider.io())
-                            .observeOn(schedulerProvider.ui())
-                }
+    private val identityProcessor =
+            ObservableTransformer<AllRealtyAction, AllRealtyResult> { actions ->
+                actions.cast(AllRealtyResult::class.java)
             }
 
     internal var actionProcessor =
@@ -44,7 +36,7 @@ class AllRealtyProcessorHolder(
                 actions.publish { shared ->
                     Observable.merge(
                             shared.ofType(LoadAllRealtyAction::class.java).compose(loadAllRealtyProcessor),
-                            shared.ofType(NavigateToDetailsAction::class.java).compose(navigateToDetailsProcessor)
+                            shared.notOfType(LoadAllRealtyAction::class.java).compose(identityProcessor)
                     )
                 }
             }

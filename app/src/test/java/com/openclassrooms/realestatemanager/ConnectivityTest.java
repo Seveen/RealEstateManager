@@ -21,17 +21,13 @@ import static junit.framework.TestCase.assertTrue;
 @RunWith(RobolectricTestRunner.class)
 public class ConnectivityTest {
 
-	private ConnectivityManager connectivityManager ;
 	private ShadowConnectivityManager shadowConnectivityManager;
-	private ShadowNetworkInfo shadowOfActiveNetworkInfo;
 
 	@Before
 	public void setUp() {
-		connectivityManager = getConnectivityManager();
+		ConnectivityManager connectivityManager = getConnectivityManager();
 		shadowConnectivityManager = Shadows.shadowOf(connectivityManager);
-		shadowOfActiveNetworkInfo = Shadows.shadowOf(connectivityManager.getActiveNetworkInfo());
 	}
-
 
 	@Test
 	public void connectivityTest_shouldWork() {

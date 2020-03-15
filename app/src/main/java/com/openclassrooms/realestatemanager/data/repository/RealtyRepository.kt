@@ -7,6 +7,5 @@ interface RealtyRepository {
     fun saveRealty(realty: Realty): Observable<Boolean>
     fun getAllRealty(): Observable<List<Realty>>
     fun clearAllRealty(): Observable<Boolean>
-    fun setCurrentDetailsRealty(realty: Realty): Observable<Boolean>
-    fun getCurrentDetailsRealty(): Observable<Realty>
+    fun getRealtyById(id: String): Observable<Realty>
 }

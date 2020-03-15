@@ -32,8 +32,7 @@ class AllRealtyFragment : Fragment(), MviView<AllRealtyIntent, AllRealtyViewStat
     }
 
     private val adapter = AllRealtyAdapter(emptyList()) {
-        intentsRelay.accept(AllRealtyIntent.NavigateToDetailsIntent(it))
-        val action = AllRealtyFragmentDirections.actionAllRealtyFragmentToDetailsFragment()
+        val action = AllRealtyFragmentDirections.actionAllRealtyFragmentToDetailsFragment(it.id)
         findNavController().navigate(action)
     }
 
@@ -43,7 +42,7 @@ class AllRealtyFragment : Fragment(), MviView<AllRealtyIntent, AllRealtyViewStat
         return inflater
                 .inflate(R.layout.fragment_all_realty, container, false)
                 .also { view ->
-                    view.allRealtyRecyclerView.apply {
+                    with (view.allRealtyRecyclerView) {
                         layoutManager = LinearLayoutManager(this@AllRealtyFragment.context)
                         adapter = this@AllRealtyFragment.adapter
                     }
@@ -66,11 +65,11 @@ class AllRealtyFragment : Fragment(), MviView<AllRealtyIntent, AllRealtyViewStat
     }
 
     override fun intents(): Observable<AllRealtyIntent> = Observable.merge(
-            Observable.just(AllRealtyIntent.LoadAllRealtyIntent),
-            intentsRelay
+        Observable.just(AllRealtyIntent.LoadAllRealtyIntent),
+        intentsRelay
     )
 
-     override fun render(state: AllRealtyViewState) {
+    override fun render(state: AllRealtyViewState) {
         progressBar.visible = state.isLoading
 
         when (state.realty.isEmpty()) {

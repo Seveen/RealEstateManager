@@ -1,15 +1,17 @@
 package com.openclassrooms.realestatemanager.feature.details
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.openclassrooms.realestatemanager.data.model.Photo
 import com.openclassrooms.realestatemanager.databinding.DetailsPhotoItemBinding
 
-class DetailsPhotoAdapter(startingData: List<String>): RecyclerView.Adapter<DetailsPhotoAdapter.ViewHolder>() {
+class DetailsPhotoAdapter(startingData: List<Photo>): RecyclerView.Adapter<DetailsPhotoAdapter.ViewHolder>() {
 
-    private val photos: MutableList<String> = startingData.toMutableList()
+    private val photos: MutableList<Photo> = startingData.toMutableList()
 
-    fun updateData(newData: List<String>) {
-        photos.apply {
+    fun updateData(newData: List<Photo>) {
+        with(photos) {
             clear()
             addAll(newData)
         }
@@ -17,21 +19,19 @@ class DetailsPhotoAdapter(startingData: List<String>): RecyclerView.Adapter<Deta
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+            DetailsPhotoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    )
 
-    override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getItemCount() = photos.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        holder.bind(photos[position])
     }
 
     class ViewHolder(private val binding: DetailsPhotoItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(photo: String) {
-
+        fun bind(photo: Photo) {
+            binding.photo = photo
         }
     }
 }

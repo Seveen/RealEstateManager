@@ -14,9 +14,14 @@
             android:id="@+id/action_allRealtyFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.openclassrooms.realestatemanager.feature.details.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="currentRealtyId"
+            app:argType="string" />
+    </fragment>
 </navigation>

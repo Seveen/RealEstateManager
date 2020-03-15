@@ -9,8 +9,4 @@ sealed class AllRealtyResult : MviResult {
         data class Success(val realty: List<Realty>) : LoadAllRealtyResult()
         data class Failure(val error: Throwable) : LoadAllRealtyResult()
     }
-    sealed class NavigateToDetailsResult : AllRealtyResult() {
-        object Success : NavigateToDetailsResult()
-        data class Failure(val error: Throwable) : NavigateToDetailsResult()
-    }
 }

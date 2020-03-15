@@ -13,7 +13,7 @@ class AllRealtyAdapter(startingData: List<Realty>, private val onClick: (Realty)
     private val realtyList: MutableList<Realty> = startingData.toMutableList()
 
     fun updateData(newData: List<Realty>) {
-        realtyList.apply {
+        with(realtyList) {
             clear()
             addAll(newData)
         }

@@ -5,8 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyProcessorHolder
 import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyViewModel
+import com.openclassrooms.realestatemanager.feature.details.DetailsProcessorHolder
+import com.openclassrooms.realestatemanager.feature.details.DetailsViewModel
 import com.openclassrooms.realestatemanager.utils.SingletonHolder
 
+@Suppress("UNCHECKED_CAST")
 class ViewModelFactory private constructor(
         private val applicationContext: Context
 ) : ViewModelProvider.Factory {
@@ -15,6 +18,12 @@ class ViewModelFactory private constructor(
         if (modelClass == AllRealtyViewModel::class.java) {
             return AllRealtyViewModel(
                     AllRealtyProcessorHolder(
+                            Injection.provideRealtyRepository(applicationContext),
+                            Injection.provideSchedulerProvider())) as T
+        }
+        if (modelClass == DetailsViewModel::class.java) {
+            return DetailsViewModel(
+                    DetailsProcessorHolder(
                             Injection.provideRealtyRepository(applicationContext),
                             Injection.provideSchedulerProvider())) as T
         }

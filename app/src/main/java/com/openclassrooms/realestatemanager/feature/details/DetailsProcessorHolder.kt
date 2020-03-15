@@ -16,8 +16,8 @@ class DetailsProcessorHolder(
     private val loadRealtyDetailsProcessor =
             ObservableTransformer<LoadRealtyDetailsAction, LoadRealtyDetailsResult> { actions ->
                 actions.flatMap {
-                    realtyRepository.getCurrentDetailsRealty()
-                            .map { realty -> LoadRealtyDetailsResult.Success(realty)}
+                    realtyRepository.getRealtyById(it.realtyId)
+                            .map { result -> LoadRealtyDetailsResult.Success(result) }
                             .cast(LoadRealtyDetailsResult::class.java)
                             .onErrorReturn(LoadRealtyDetailsResult::Failure)
                             .subscribeOn(schedulerProvider.io())

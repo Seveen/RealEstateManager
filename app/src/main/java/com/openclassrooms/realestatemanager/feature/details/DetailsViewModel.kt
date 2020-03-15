@@ -22,14 +22,14 @@ class DetailsViewModel(
 
     override fun states(): Observable<DetailsViewState> =
             intentsRelay
-                    .map(::actionFromIntent)
-                    .compose(actionProcessorHolder.actionProcessor)
-                    .scan(DetailsViewState.idle(), reducer)
-                    .distinctUntilChanged()
+                .map(::actionFromIntent)
+                .compose(actionProcessorHolder.actionProcessor)
+                .scan(DetailsViewState.idle(), reducer)
+                .distinctUntilChanged()
 
     private fun actionFromIntent(intent: DetailsIntent) : DetailsAction {
         return when (intent) {
-            is LoadRealtyDetailsIntent -> LoadRealtyDetailsAction
+            is LoadRealtyDetailsIntent -> LoadRealtyDetailsAction(intent.realtyId)
         }
     }
 
