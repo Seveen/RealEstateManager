@@ -1,19 +1,23 @@
 package com.openclassrooms.realestatemanager.app
 
 import android.app.Application
-import androidx.room.Room
-import com.openclassrooms.realestatemanager.data.repository.room.RealtyDatabase
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
 class RealEstateManagerApplication : Application() {
-
-    companion object {
-        lateinit var database: RealtyDatabase
-    }
 
     override fun onCreate() {
         super.onCreate()
 
-        database = Room.databaseBuilder(this, RealtyDatabase::class.java, "realty_database")
-                .build()
+        startKoin {
+            androidLogger()
+            androidContext(this@RealEstateManagerApplication)
+            modules(
+                    repoModule,
+                    allRealtyModule,
+                    detailsModule
+            )
+        }
     }
 }

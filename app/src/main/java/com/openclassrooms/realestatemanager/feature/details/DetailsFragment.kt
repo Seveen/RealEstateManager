@@ -7,14 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import com.jakewharton.rxrelay2.PublishRelay
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.app.ViewModelFactory
 import com.openclassrooms.realestatemanager.databinding.FragmentDetailsBinding
 import com.openclassrooms.realestatemanager.mvibase.MviView
 import com.openclassrooms.realestatemanager.utils.visible
@@ -22,6 +22,7 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.android.synthetic.main.fragment_details.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsFragment : Fragment(), MviView<DetailsIntent, DetailsViewState> {
 
@@ -31,10 +32,7 @@ class DetailsFragment : Fragment(), MviView<DetailsIntent, DetailsViewState> {
 
     private val realtyIdArg: DetailsFragmentArgs by navArgs()
 
-    private val viewModel: DetailsViewModel by lazy(LazyThreadSafetyMode.NONE) {
-        ViewModelProvider(this, ViewModelFactory.getInstance(context!!))
-                .get(DetailsViewModel::class.java)
-    }
+    private val detailsViewModel: DetailsViewModel by viewModel()
 
     private val adapter = DetailsPhotoAdapter(emptyList())
 
@@ -51,6 +49,11 @@ class DetailsFragment : Fragment(), MviView<DetailsIntent, DetailsViewState> {
                 }
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        overrideToolbar()
+    }
+
     override fun onStart() {
         super.onStart()
         connect()
@@ -62,8 +65,8 @@ class DetailsFragment : Fragment(), MviView<DetailsIntent, DetailsViewState> {
     }
 
     private fun connect() {
-        disposables.add(viewModel.states().subscribe(::render))
-        viewModel.processIntents(intents())
+        disposables.add(detailsViewModel.states().subscribe(::render))
+        detailsViewModel.processIntents(intents())
     }
 
     override fun intents(): Observable<DetailsIntent> = Observable.merge(
@@ -85,5 +88,14 @@ class DetailsFragment : Fragment(), MviView<DetailsIntent, DetailsViewState> {
         }
     }
 
-
+    private fun overrideToolbar() {
+        val toolbar = activity?.findViewById<Toolbar>(R.id.toolBar)
+        toolbar?.setOnMenuItemClickListener {
+            return@setOnMenuItemClickListener if (it.itemId == R.id.editRealty) {
+                val action = DetailsFragmentDirections.actionDetailsFragmentToEditRealtyFragment(realtyIdArg.currentRealtyId)
+                findNavController().navigate(action)
+                true
+            } else false
+        }
+    }
 }

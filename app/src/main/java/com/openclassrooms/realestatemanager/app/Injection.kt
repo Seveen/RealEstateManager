@@ -1,12 +1,27 @@
 package com.openclassrooms.realestatemanager.app
 
-import android.content.Context
 import com.openclassrooms.realestatemanager.app.scheduler.BaseSchedulerProvider
 import com.openclassrooms.realestatemanager.app.scheduler.SchedulerProvider
 import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
 import com.openclassrooms.realestatemanager.data.repository.room.DebugRepository
+import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyProcessorHolder
+import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyViewModel
+import com.openclassrooms.realestatemanager.feature.details.DetailsProcessorHolder
+import com.openclassrooms.realestatemanager.feature.details.DetailsViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-object Injection {
-    fun provideRealtyRepository(context: Context): RealtyRepository = DebugRepository()
-    fun provideSchedulerProvider(): BaseSchedulerProvider = SchedulerProvider
+val repoModule = module {
+    single<RealtyRepository> { DebugRepository() }
+    single<BaseSchedulerProvider> { SchedulerProvider }
+}
+
+val allRealtyModule = module {
+    single { AllRealtyProcessorHolder(get(), get()) }
+    viewModel { AllRealtyViewModel(get()) }
+}
+
+val detailsModule = module {
+    single { DetailsProcessorHolder(get(), get())}
+    viewModel { DetailsViewModel(get()) }
 }

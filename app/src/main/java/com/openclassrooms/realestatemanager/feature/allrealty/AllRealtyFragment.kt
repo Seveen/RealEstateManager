@@ -7,18 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxrelay2.PublishRelay
 import com.openclassrooms.realestatemanager.R
-import com.openclassrooms.realestatemanager.app.ViewModelFactory
 import com.openclassrooms.realestatemanager.mvibase.MviView
 import com.openclassrooms.realestatemanager.utils.visible
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_all_realty.*
 import kotlinx.android.synthetic.main.fragment_all_realty.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class AllRealtyFragment : Fragment(), MviView<AllRealtyIntent, AllRealtyViewState> {
@@ -26,10 +25,7 @@ class AllRealtyFragment : Fragment(), MviView<AllRealtyIntent, AllRealtyViewStat
     private val intentsRelay = PublishRelay.create<AllRealtyIntent>()
     private val disposables = CompositeDisposable()
 
-    private val viewModel: AllRealtyViewModel by lazy(LazyThreadSafetyMode.NONE) {
-        ViewModelProvider(this, ViewModelFactory.getInstance(context!!))
-                .get(AllRealtyViewModel::class.java)
-    }
+    private val allRealtyViewModel: AllRealtyViewModel by viewModel()
 
     private val adapter = AllRealtyAdapter(emptyList()) {
         val action = AllRealtyFragmentDirections.actionAllRealtyFragmentToDetailsFragment(it.id)
@@ -60,8 +56,8 @@ class AllRealtyFragment : Fragment(), MviView<AllRealtyIntent, AllRealtyViewStat
     }
 
     private fun connect() {
-        disposables.add(viewModel.states().subscribe(::render))
-        viewModel.processIntents(intents())
+        disposables.add(allRealtyViewModel.states().subscribe(::render))
+        allRealtyViewModel.processIntents(intents())
     }
 
     override fun intents(): Observable<AllRealtyIntent> = Observable.merge(

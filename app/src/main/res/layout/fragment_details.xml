@@ -67,6 +67,126 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descriptionLabel" />
 
+        <ImageView
+            android:id="@+id/surfaceIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/surfaceTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/surfaceLabel"
+            app:srcCompat="@drawable/ic_surface_grey" />
+
+        <TextView
+            android:id="@+id/surfaceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Surface"
+            app:layout_constraintStart_toEndOf="@+id/surfaceIcon"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
+
+        <TextView
+            android:id="@+id/surfaceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="750 sq m"
+            app:layout_constraintStart_toEndOf="@+id/surfaceIcon"
+            app:layout_constraintTop_toBottomOf="@+id/surfaceLabel" />
+
+        <ImageView
+            android:id="@+id/roomsIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/roomsTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/roomsLabel"
+            app:srcCompat="@drawable/ic_home_grey" />
+
+        <TextView
+            android:id="@+id/roomsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Number of rooms"
+            app:layout_constraintStart_toEndOf="@+id/roomsIcon"
+            app:layout_constraintTop_toBottomOf="@+id/surfaceTextView" />
+
+        <TextView
+            android:id="@+id/roomsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="8"
+            app:layout_constraintStart_toEndOf="@+id/roomsIcon"
+            app:layout_constraintTop_toBottomOf="@+id/roomsLabel" />
+
+        <ImageView
+            android:id="@+id/bathroomsIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/bathroomsTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bathroomsLabel"
+            app:srcCompat="@drawable/ic_hot_tub_grey" />
+
+        <TextView
+            android:id="@+id/bathroomsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Number of bathrooms"
+            app:layout_constraintStart_toEndOf="@+id/bathroomsIcon"
+            app:layout_constraintTop_toBottomOf="@+id/roomsTextView" />
+
+        <TextView
+            android:id="@+id/bathroomsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="2"
+            app:layout_constraintStart_toEndOf="@+id/bathroomsIcon"
+            app:layout_constraintTop_toBottomOf="@+id/bathroomsLabel" />
+
+        <ImageView
+            android:id="@+id/bedroomsIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/bedroomsTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bedroomsLabel"
+            app:srcCompat="@drawable/ic_bedrooms_grey" />
+
+        <TextView
+            android:id="@+id/bedroomsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Number of bedrooms"
+            app:layout_constraintStart_toEndOf="@+id/bedroomsIcon"
+            app:layout_constraintTop_toBottomOf="@+id/bathroomsTextView" />
+
+        <TextView
+            android:id="@+id/bedroomsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="4"
+            app:layout_constraintStart_toEndOf="@+id/bedroomsIcon"
+            app:layout_constraintTop_toBottomOf="@+id/bedroomsLabel" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

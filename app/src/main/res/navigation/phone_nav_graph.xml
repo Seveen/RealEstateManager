@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_allRealtyFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_allRealtyFragment_to_editRealtyFragment"
+            app:destination="@id/editRealtyFragment" />
     </fragment>
 
     <fragment
@@ -23,5 +26,37 @@
         <argument
             android:name="currentRealtyId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_detailsFragment_to_editRealtyFragment"
+            app:destination="@id/editRealtyFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/editRealtyFragment"
+        android:name="com.openclassrooms.realestatemanager.feature.editrealty.EditRealtyFragment"
+        android:label="fragment_edit_realty"
+        tools:layout="@layout/fragment_edit_realty" >
+        <argument
+            android:name="editRealtyId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.openclassrooms.realestatemanager.feature.map.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.openclassrooms.realestatemanager.feature.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <action android:id="@+id/action_global_mapFragment" app:destination="@id/mapFragment" />
+    <action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment" /><action android:id="@+id/action_global_allRealtyFragment" app:destination="@id/allRealtyFragment"/>
 </navigation>
