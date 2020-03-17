@@ -16,7 +16,8 @@ class RealEstateManagerApplication : Application() {
             modules(
                     repoModule,
                     allRealtyModule,
-                    detailsModule
+                    detailsModule,
+                    editRealtyModule
             )
         }
     }

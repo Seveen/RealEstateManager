@@ -13,6 +13,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMapOptions
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.jakewharton.rxrelay2.PublishRelay
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.databinding.FragmentDetailsBinding
@@ -24,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.android.synthetic.main.fragment_details.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DetailsFragment : Fragment(), MviView<DetailsIntent, DetailsViewState> {
+class DetailsFragment : Fragment(), MviView<DetailsIntent, DetailsViewState>, OnMapReadyCallback {
 
     private val intentsRelay = PublishRelay.create<DetailsIntent>()
     private val disposables = CompositeDisposable()
@@ -52,6 +56,15 @@ class DetailsFragment : Fragment(), MviView<DetailsIntent, DetailsViewState> {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         overrideToolbar()
+        var mapFragment = childFragmentManager.findFragmentById(R.id.staticMap) as SupportMapFragment?
+        if (mapFragment == null) {
+            val options = GoogleMapOptions().liteMode(true)
+            mapFragment = SupportMapFragment.newInstance(options)
+            mapFragment.getMapAsync(this)
+        }
+        childFragmentManager.beginTransaction()
+                .replace(R.id.staticMap, mapFragment as Fragment)
+                .commit()
     }
 
     override fun onStart() {
@@ -97,5 +110,9 @@ class DetailsFragment : Fragment(), MviView<DetailsIntent, DetailsViewState> {
                 true
             } else false
         }
+    }
+
+    override fun onMapReady(googleMap: GoogleMap?) {
+
     }
 }

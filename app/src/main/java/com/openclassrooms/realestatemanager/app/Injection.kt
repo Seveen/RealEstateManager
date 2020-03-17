@@ -8,6 +8,8 @@ import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyProcessor
 import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyViewModel
 import com.openclassrooms.realestatemanager.feature.details.DetailsProcessorHolder
 import com.openclassrooms.realestatemanager.feature.details.DetailsViewModel
+import com.openclassrooms.realestatemanager.feature.editrealty.EditRealtyProcessorHolder
+import com.openclassrooms.realestatemanager.feature.editrealty.EditRealtyViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -22,6 +24,11 @@ val allRealtyModule = module {
 }
 
 val detailsModule = module {
-    single { DetailsProcessorHolder(get(), get())}
+    single { DetailsProcessorHolder(get(), get()) }
     viewModel { DetailsViewModel(get()) }
+}
+
+val editRealtyModule = module {
+    single { EditRealtyProcessorHolder(get(), get()) }
+    viewModel { EditRealtyViewModel(get()) }
 }

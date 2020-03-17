@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@{realty.address}"
+                android:text="@{realty.district}"
                 app:layout_constraintStart_toEndOf="@+id/realty_photo_imageview"
                 app:layout_constraintTop_toBottomOf="@+id/realty_type_textview"
                 tools:text="location" />

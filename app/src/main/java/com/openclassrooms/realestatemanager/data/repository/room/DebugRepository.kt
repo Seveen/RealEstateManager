@@ -10,9 +10,9 @@ import java.util.*
 class DebugRepository : RealtyRepository {
 
     val dummyList: List<Realty> = listOf(
-            Realty("0","type", 100.0, 59.0, 5, "description1", emptyList(), "address", emptyList(), false, Date(), Date(), EstateAgent(0, "agent", "agent")),
-            Realty("1","type", 140.0, 59.0, 5, "description2", emptyList(), "address", emptyList(), false, Date(), Date(), EstateAgent(0, "agent", "agent")),
-            Realty("2","type", 140.0, 59.0, 5, "description3", emptyList(), "address", emptyList(), false, Date(), Date(), EstateAgent(0, "agent", "agent"))
+            Realty("0", "type", 100.0, 59.0, 5, 5, 5, "district", "address", emptyList(), false, Date(), Date(), EstateAgent(0, "agent", "agent"), "description1", emptyList()),
+            Realty("1", "type", 140.0, 59.0, 5, 5, 5, "district", "address", emptyList(), false, Date(), Date(), EstateAgent(0, "agent", "agent"), "description2", emptyList()),
+            Realty("2", "type", 140.0, 59.0, 5, 5, 5, "district", "address", emptyList(), false, Date(), Date(), EstateAgent(0, "agent", "agent"), "description3", emptyList())
     )
 
     override fun saveRealty(realty: Realty): Observable<Boolean> {
