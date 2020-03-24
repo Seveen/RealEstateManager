@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.app
+package com.openclassrooms.realestatemanager.feature.mainactivity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,9 +9,13 @@ import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyFragmentDirections
 import com.openclassrooms.realestatemanager.utils.visible
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
+
+    private val mainViewModel: MainActivityViewModel by viewModel()
 
     private val navListener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
         when (destination.id) {
@@ -93,7 +97,8 @@ class MainActivity : AppCompatActivity() {
         toolBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.newRealty -> {
-                    val action = AllRealtyFragmentDirections.actionAllRealtyFragmentToEditRealtyFragment("")
+                    mainViewModel.clearCurrentRealty()
+                    val action = AllRealtyFragmentDirections.actionAllRealtyFragmentToEditRealtyFragment()
                     navController.navigate(action)
                     true
                 }

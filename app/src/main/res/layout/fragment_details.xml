@@ -92,8 +92,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="750 sq m"
+            android:text="@{realty.surface}"
             app:layout_constraintStart_toEndOf="@+id/surfaceIcon"
+            app:layout_constraintTop_toBottomOf="@+id/surfaceLabel" />
+
+        <TextView
+            android:id="@+id/surfaceUnitTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="sq m"
+            app:layout_constraintStart_toEndOf="@+id/surfaceTextView"
             app:layout_constraintTop_toBottomOf="@+id/surfaceLabel" />
 
         <ImageView
@@ -121,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="8"
+            app:textFromInt="@{realty.numberOfRooms}"
             app:layout_constraintStart_toEndOf="@+id/roomsIcon"
             app:layout_constraintTop_toBottomOf="@+id/roomsLabel" />
 
@@ -150,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="2"
+            app:textFromInt="@{realty.numberOfBathrooms}"
             app:layout_constraintStart_toEndOf="@+id/bathroomsIcon"
             app:layout_constraintTop_toBottomOf="@+id/bathroomsLabel" />
 
@@ -179,7 +188,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="4"
+            app:textFromInt="@{realty.numberOfBedrooms}"
             app:layout_constraintStart_toEndOf="@+id/bedroomsIcon"
             app:layout_constraintTop_toBottomOf="@+id/bedroomsLabel" />
 
@@ -221,7 +230,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:text="740 Park Avenue \n Apt 564 \n New York \n NY 19465 \n United States"
+            android:text="@{realty.address}"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/locationIcon"
             app:layout_constraintTop_toBottomOf="@+id/locationLabel" />
