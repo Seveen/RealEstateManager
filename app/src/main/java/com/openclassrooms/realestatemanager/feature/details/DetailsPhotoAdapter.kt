@@ -18,7 +18,6 @@ class DetailsPhotoAdapter(startingData: List<Photo>): RecyclerView.Adapter<Detai
         notifyDataSetChanged()
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
             DetailsPhotoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )

@@ -1,34 +1,42 @@
 package com.openclassrooms.realestatemanager.app
 
+import androidx.room.Room
 import com.openclassrooms.realestatemanager.app.scheduler.BaseSchedulerProvider
 import com.openclassrooms.realestatemanager.app.scheduler.SchedulerProvider
+import com.openclassrooms.realestatemanager.data.repository.DebugRepository
 import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
-import com.openclassrooms.realestatemanager.data.repository.room.DebugRepository
-import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyProcessorHolder
+import com.openclassrooms.realestatemanager.data.room.RealtyDatabase
 import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyViewModel
-import com.openclassrooms.realestatemanager.feature.details.DetailsProcessorHolder
 import com.openclassrooms.realestatemanager.feature.details.DetailsViewModel
-import com.openclassrooms.realestatemanager.feature.editrealty.EditRealtyProcessorHolder
 import com.openclassrooms.realestatemanager.feature.editrealty.EditRealtyViewModel
+import com.openclassrooms.realestatemanager.feature.mainactivity.MainActivityViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val repoModule = module {
-    single<RealtyRepository> { DebugRepository() }
+    single {
+        Room.databaseBuilder(
+                get(),
+                RealtyDatabase::class.java, "realty_database"
+        ).build()}
+    single { get<RealtyDatabase>().realtyDao() }
     single<BaseSchedulerProvider> { SchedulerProvider }
+//    single<RealtyRepository> { RoomRepository(get(), get()) }
+    single<RealtyRepository> { DebugRepository() }
+}
+
+val mainModule = module {
+    viewModel { MainActivityViewModel(get()) }
 }
 
 val allRealtyModule = module {
-    single { AllRealtyProcessorHolder(get(), get()) }
     viewModel { AllRealtyViewModel(get()) }
 }
 
 val detailsModule = module {
-    single { DetailsProcessorHolder(get(), get()) }
     viewModel { DetailsViewModel(get()) }
 }
 
 val editRealtyModule = module {
-    single { EditRealtyProcessorHolder(get(), get()) }
     viewModel { EditRealtyViewModel(get()) }
 }

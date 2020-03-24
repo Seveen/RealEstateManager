@@ -4,4 +4,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error_loading_list">Error loading realty list</string>
+
+    <string-array name="types_array">
+        <item>Flat</item>
+        <item>House</item>
+        <item>Duplex</item>
+        <item>Penthouse</item>
+    </string-array>
+
 </resources>

@@ -1,60 +1,27 @@
 package com.openclassrooms.realestatemanager.feature.allrealty
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.jakewharton.rxrelay2.BehaviorRelay
-import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyAction.LoadAllRealtyAction
-import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyIntent.LoadAllRealtyIntent
-import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyResult.LoadAllRealtyResult
-import com.openclassrooms.realestatemanager.mvibase.MviViewModel
-import com.openclassrooms.realestatemanager.utils.notOfType
-import io.reactivex.Observable
-import io.reactivex.ObservableTransformer
-import io.reactivex.functions.BiFunction
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.openclassrooms.realestatemanager.data.model.Realty
+import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
+import kotlinx.coroutines.Dispatchers
 
 class AllRealtyViewModel(
-        private val actionProcessorHolder: AllRealtyProcessorHolder
-) : ViewModel(), MviViewModel<AllRealtyIntent, AllRealtyViewState> {
+        private val realtyRepository: RealtyRepository
+) : ViewModel() {
 
-    private val intentsRelay : BehaviorRelay<AllRealtyIntent> =
-            BehaviorRelay.create()
+    private val _realtyList = realtyRepository
+            .getAllRealty()
+            .asLiveData(Dispatchers.Default + viewModelScope.coroutineContext)
 
-    private val intentFilter: ObservableTransformer<AllRealtyIntent, AllRealtyIntent>
-        get() = ObservableTransformer { intents ->
-            intents.publish {shared ->
-                Observable.merge(
-                        shared.ofType(LoadAllRealtyIntent::class.java).take(1),
-                        shared.notOfType(LoadAllRealtyIntent::class.java)
-                )
-            }
-        }
+    val realtyList: LiveData<Result<List<Realty>>>
+        get() = _realtyList
 
-    override fun processIntents(intents: Observable<AllRealtyIntent>) {
-        intents.subscribe(intentsRelay)
-    }
-
-    override fun states(): Observable<AllRealtyViewState> =
-            intentsRelay
-                    .compose(intentFilter)
-                    .map(::actionFromIntent)
-                    .compose(actionProcessorHolder.actionProcessor)
-                    .scan(AllRealtyViewState.idle(), reducer)
-                    .distinctUntilChanged()
-
-    private fun actionFromIntent(intent: AllRealtyIntent) : AllRealtyAction {
-        return when (intent) {
-            is LoadAllRealtyIntent -> LoadAllRealtyAction
-        }
-    }
-
-    companion object {
-        private val reducer = BiFunction { previousState: AllRealtyViewState, result: AllRealtyResult ->
-            when (result) {
-                is LoadAllRealtyResult -> when (result) {
-                    is LoadAllRealtyResult.Success -> previousState.copy(isLoading = false, realty = result.realty)
-                    is LoadAllRealtyResult.Failure -> previousState.copy(isLoading = false, error = result.error)
-                    is LoadAllRealtyResult.Loading -> previousState.copy(isLoading = true)
-                }
-            }
-        }
+    fun setCurrentRealty(realty: Realty) {
+        Log.d("REPOSITORYLOG", "from allrealtyvm")
+        realtyRepository.setCurrentRealty(realty)
     }
 }

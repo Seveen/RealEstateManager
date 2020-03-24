@@ -23,9 +23,6 @@
         android:name="com.openclassrooms.realestatemanager.feature.details.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" >
-        <argument
-            android:name="currentRealtyId"
-            app:argType="string" />
         <action
             android:id="@+id/action_detailsFragment_to_editRealtyFragment"
             app:destination="@id/editRealtyFragment" />
@@ -34,11 +31,7 @@
         android:id="@+id/editRealtyFragment"
         android:name="com.openclassrooms.realestatemanager.feature.editrealty.EditRealtyFragment"
         android:label="fragment_edit_realty"
-        tools:layout="@layout/fragment_edit_realty" >
-        <argument
-            android:name="editRealtyId"
-            app:argType="string" />
-    </fragment>
+        tools:layout="@layout/fragment_edit_realty" />
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.openclassrooms.realestatemanager.feature.map.MapFragment"

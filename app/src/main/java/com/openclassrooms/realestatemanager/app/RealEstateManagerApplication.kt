@@ -14,6 +14,7 @@ class RealEstateManagerApplication : Application() {
             androidLogger()
             androidContext(this@RealEstateManagerApplication)
             modules(
+                    mainModule,
                     repoModule,
                     allRealtyModule,
                     detailsModule,
