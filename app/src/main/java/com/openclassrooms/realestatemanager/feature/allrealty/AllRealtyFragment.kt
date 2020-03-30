@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.feature.allrealty
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,9 +46,7 @@ class AllRealtyFragment : Fragment() {
         emptyState.visible = false
 
         allRealtyViewModel.realtyList.observe(viewLifecycleOwner) { result ->
-            result.fold(
-                    { value -> render(value)},
-                    { error -> Log.e(javaClass.canonicalName, error.message ?: "error with the error message")})
+            render(result)
         }
     }
 

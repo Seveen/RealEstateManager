@@ -69,6 +69,7 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
     private fun render(realty: Realty) {
         progressBar.visible = false
         binding.realty = realty
+        adapter.updateData(realty.photos)
     }
 
     private fun overrideToolbar() {

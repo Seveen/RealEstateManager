@@ -3,11 +3,12 @@ package com.openclassrooms.realestatemanager.data.model
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.android.gms.maps.model.LatLng
 import java.util.*
 
 @Entity(tableName = "realty_table")
 data class Realty(
-        @PrimaryKey val id: String,
+        @PrimaryKey(autoGenerate = true) val id: Int,
         val type: String,
         val priceInDollars: Double,
         val surface: Double,
@@ -22,10 +23,11 @@ data class Realty(
         val saleDate: Date?,
         @Embedded val assignedEstateAgent: EstateAgent,
         val description: String,
-        val photos: List<Photo>
+        val photos: List<Photo>,
+        val location: LatLng?
 ) {
     companion object {
-        fun default() = Realty("",
+        fun default() = Realty(0,
                 "",
                 0.0,
                 0.0,
@@ -40,6 +42,7 @@ data class Realty(
                 null,
                 EstateAgent.default(),
                 "",
-                emptyList())
+                emptyList(),
+                null)
     }
 }

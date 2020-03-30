@@ -40,8 +40,3 @@ class EditRealtyPhotoAdapter(startingData: List<Photo>, private val onDeletePhot
         }
     }
 }
-
-@BindingAdapter("srcUri")
-fun setImageUri(view: ImageView, uri: String) {
-    view.setImageURI(Uri.parse(uri))
-}

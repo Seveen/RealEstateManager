@@ -1,8 +1,12 @@
 package com.openclassrooms.realestatemanager.feature.editrealty
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.openclassrooms.realestatemanager.data.model.Photo
 import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class EditRealtyViewModel(
         private val realtyRepository: RealtyRepository
@@ -47,4 +51,10 @@ class EditRealtyViewModel(
                 realtyRepository.setCurrentRealty(it.copy(photos = it.photos.minus(photo)))
             }
 
+    fun saveAndThen(doNext: () -> Unit) = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            realtyRepository.saveCurrentRealty()
+        }
+        doNext()
+    }
 }

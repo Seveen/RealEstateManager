@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.data.room
 
 import androidx.room.TypeConverter
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.openclassrooms.realestatemanager.data.model.Photo
@@ -16,6 +17,14 @@ class Converters {
     @TypeConverter
     fun dateToTimestamp(date: Date?): Long? {
         return date?.time
+    }
+
+    @TypeConverter
+    fun serializeLatLng(location: LatLng): String? = Gson().toJson(location)
+
+    @TypeConverter
+    fun deserializeLatLng(location: String): LatLng? {
+        return fromJson<LatLng>(location)
     }
 
     @TypeConverter

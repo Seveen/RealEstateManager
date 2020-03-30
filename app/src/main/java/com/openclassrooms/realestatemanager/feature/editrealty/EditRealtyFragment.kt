@@ -125,10 +125,11 @@ class EditRealtyFragment : Fragment() {
         addressEditText.text = realty.address.toEditable()
     }
 
-    private fun saveRealty() {
-        //TODO: commit realty to Room
-        findNavController().navigateUp()
-    }
+    private fun saveRealty() =
+        editRealtyViewModel.saveAndThen {
+            Log.d(javaClass.canonicalName, "Saved")
+            findNavController().navigateUp()
+        }
 
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->

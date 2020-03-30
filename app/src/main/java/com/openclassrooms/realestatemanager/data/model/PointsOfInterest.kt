@@ -5,9 +5,10 @@ import androidx.room.ColumnInfo
 data class PointsOfInterest(
         @ColumnInfo(name = "poi_id") var id: Int,
         var closeToMetro: Boolean,
-        var closeToShops: Boolean
+        var closeToShops: Boolean,
+        var closeToPark: Boolean
 ) {
     companion object {
-        fun default() = PointsOfInterest(0, closeToMetro = false, closeToShops = false)
+        fun default() = PointsOfInterest(0, closeToMetro = false, closeToShops = false, closeToPark = false)
     }
 }

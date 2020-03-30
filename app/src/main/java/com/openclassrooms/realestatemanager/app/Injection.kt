@@ -1,10 +1,8 @@
 package com.openclassrooms.realestatemanager.app
 
 import androidx.room.Room
-import com.openclassrooms.realestatemanager.app.scheduler.BaseSchedulerProvider
-import com.openclassrooms.realestatemanager.app.scheduler.SchedulerProvider
-import com.openclassrooms.realestatemanager.data.repository.DebugRepository
 import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
+import com.openclassrooms.realestatemanager.data.repository.RoomRepository
 import com.openclassrooms.realestatemanager.data.room.RealtyDatabase
 import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyViewModel
 import com.openclassrooms.realestatemanager.feature.details.DetailsViewModel
@@ -20,9 +18,8 @@ val repoModule = module {
                 RealtyDatabase::class.java, "realty_database"
         ).build()}
     single { get<RealtyDatabase>().realtyDao() }
-    single<BaseSchedulerProvider> { SchedulerProvider }
-//    single<RealtyRepository> { RoomRepository(get(), get()) }
-    single<RealtyRepository> { DebugRepository() }
+    single<RealtyRepository> { RoomRepository(get()) }
+//    single<RealtyRepository> { DebugRepository() }
 }
 
 val mainModule = module {

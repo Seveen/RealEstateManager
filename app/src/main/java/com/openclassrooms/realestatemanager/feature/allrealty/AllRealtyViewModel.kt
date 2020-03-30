@@ -17,7 +17,7 @@ class AllRealtyViewModel(
             .getAllRealty()
             .asLiveData(Dispatchers.Default + viewModelScope.coroutineContext)
 
-    val realtyList: LiveData<Result<List<Realty>>>
+    val realtyList: LiveData<List<Realty>>
         get() = _realtyList
 
     fun setCurrentRealty(realty: Realty) {
