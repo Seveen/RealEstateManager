@@ -19,6 +19,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
+import com.google.android.material.textfield.TextInputLayout
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.model.Photo
 import com.openclassrooms.realestatemanager.data.model.Realty
@@ -33,6 +34,13 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+
+//TODO: Add way to remove photo
+//TODO: Add way to change name of photo
+//TODO: Add validation: at least one photo
+//TODO: Add processing: at save, find latLng via geocoding
+//TODO: Add confirmation: message if everything went fine at save
+//TODO: Handle dollar/euro switch
 
 class EditRealtyFragment : Fragment() {
 
@@ -86,50 +94,87 @@ class EditRealtyFragment : Fragment() {
     private fun wireUi() {
         typeSpinner.onSelected { editRealtyViewModel.editType(it?: "") }
         districtEditText.doOnTextChanged { text, _, _, _ -> editRealtyViewModel.editDistrict(text?.toString()?: "")}
+
+        priceEditText.doOnTextChanged { text, _, _, _ ->
+            text.coerceToDoubleAndUpdate(priceLayoutView) {
+                editRealtyViewModel.editPrice(it)
+            }
+        }
+
         descriptionEditText.doOnTextChanged { text, _, _, _ -> editRealtyViewModel.editDescription(text?.toString()?: "")}
+
         surfaceEditText.doOnTextChanged { text, _, _, _ ->
-            val surface = text?.toString()?.toDoubleOrNull()
-            if (surface == null) surfaceLayoutView.error = "Not a number"
-            surface?.let {
-                surfaceLayoutView.error = null
+            text.coerceToDoubleAndUpdate(surfaceLayoutView) {
                 editRealtyViewModel.editSurface(it)
             }
         }
+
         numberRoomsEditText.doOnTextChanged { text, _, _, _ ->
-            val nbRooms = text?.toString()?.toIntOrNull()
-            if (nbRooms == null) numberRoomsLayoutView.error = "Not a number"
-            nbRooms?.let {
-                numberRoomsLayoutView.error = null
+            text.coerceToIntAndUpdate(numberRoomsLayoutView) {
                 editRealtyViewModel.editNbOfRooms(it)
             }
         }
+
         numberBathroomsEditText.doOnTextChanged { text, _, _, _ ->
-            val nbRooms = text?.toString()?.toIntOrNull()
-            if (nbRooms == null) numberBathroomsLayoutView.error = "Not a number"
-            nbRooms?.let {
-                numberBathroomsLayoutView.error = null
+            text.coerceToIntAndUpdate(numberBathroomsLayoutView) {
                 editRealtyViewModel.editNbOfBathrooms(it)
             }
         }
+
+        numberBedroomsEditText.doOnTextChanged { text, _, _, _ ->
+            text.coerceToIntAndUpdate(numberBedroomsLayoutView) {
+                editRealtyViewModel.editNbOfBedrooms(it)
+            }
+        }
+
         addressEditText.doOnTextChanged { text, _, _, _ -> editRealtyViewModel.editAddress(text?.toString()?: "")}
+
+        metroSwitch.setOnCheckedChangeListener { _, value -> editRealtyViewModel.editPoiMetro(value) }
+        parkSwitch.setOnCheckedChangeListener {_, value -> editRealtyViewModel.editPoiPark(value)}
+        shopsSwitch.setOnCheckedChangeListener { _, value -> editRealtyViewModel.editPoiShops(value) }
+
         saveButton.setOnClickListener { saveRealty() }
     }
 
     private fun render(realty: Realty) {
         typeSpinner.setText(realty.type)
         districtEditText.text = realty.district.toEditable()
+        priceEditText.text = realty.priceInDollars.toString().toEditable()
         descriptionEditText.text = realty.description.toEditable()
         surfaceEditText.text = realty.surface.toString().toEditable()
         numberRoomsEditText.text = realty.numberOfRooms.toString().toEditable()
         numberBathroomsEditText.text = realty.numberOfBathrooms.toString().toEditable()
+        numberBedroomsEditText.text = realty.numberOfBedrooms.toString().toEditable()
         addressEditText.text = realty.address.toEditable()
+        metroSwitch.isChecked = realty.pointsOfInterest.closeToMetro
+        parkSwitch.isChecked = realty.pointsOfInterest.closeToPark
+        shopsSwitch.isChecked = realty.pointsOfInterest.closeToShops
     }
 
-    private fun saveRealty() =
+    private fun saveRealty() {
         editRealtyViewModel.saveAndThen {
             Log.d(javaClass.canonicalName, "Saved")
             findNavController().navigateUp()
         }
+    }
+
+    private fun CharSequence?.coerceToIntAndUpdate(view: TextInputLayout, saveFn: (Int) -> Unit) {
+        val number = toString().trim().toIntOrNull()
+        if (number == null) view.error = "Not a number"
+        number?.let {
+            view.error = null
+            saveFn(it)
+        }
+    }
+
+    private fun CharSequence?.coerceToDoubleAndUpdate(view: TextInputLayout, saveFn: (Double) -> Unit) {
+        val number = toString().trim().toDoubleOrNull()
+        if (number == null) view.error = "Not a number"
+        number?.let {
+            view.error = null
+            saveFn(it)
+        }
+    }
 
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->

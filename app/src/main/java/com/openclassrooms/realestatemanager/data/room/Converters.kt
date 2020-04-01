@@ -20,7 +20,9 @@ class Converters {
     }
 
     @TypeConverter
-    fun serializeLatLng(location: LatLng): String? = Gson().toJson(location)
+    fun serializeLatLng(location: LatLng?): String? = location?.let {
+        Gson().toJson(location)
+    } ?: ""
 
     @TypeConverter
     fun deserializeLatLng(location: String): LatLng? {
@@ -38,4 +40,5 @@ class Converters {
     private inline fun <reified T> fromJson(json: String): T {
         return Gson().fromJson(json, object: TypeToken<T>(){}.type)
     }
+
 }

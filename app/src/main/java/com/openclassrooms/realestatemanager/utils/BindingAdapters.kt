@@ -14,6 +14,11 @@ fun setTextFromInt(view: TextView, value: Int) {
     view.text = value.toString().toEditable()
 }
 
+@BindingAdapter("priceText")
+fun setPriceText(view: TextView, price: Double) {
+    view.text = "$${price}"
+}
+
 @BindingAdapter("srcUri")
 fun setImageUri(view: ImageView, uri: String) {
     view.setImageURI(Uri.parse(uri))

@@ -62,12 +62,56 @@
                 app:layout_constraintTop_toBottomOf="@+id/photoGalleryRecyclerView" />
 
             <TextView
-                android:id="@+id/descriptionTextView"
+                android:id="@+id/closeToLabel"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Close to:"
+                app:layout_constraintStart_toStartOf="@+id/staticMap"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
+
+            <TextView
+                android:id="@+id/closeToMetroLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:drawableStart="@drawable/ic_check_grey"
+                android:text="Metro"
+                app:layout_constraintStart_toStartOf="@+id/closeToLabel"
+                app:layout_constraintTop_toBottomOf="@+id/closeToLabel" />
+
+            <TextView
+                android:id="@+id/closeToShopsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:drawableStart="@drawable/ic_check_grey"
+                android:text="Shops"
+                app:layout_constraintStart_toStartOf="@+id/closeToLabel"
+                app:layout_constraintTop_toBottomOf="@+id/closeToMetroLabel" />
+
+            <TextView
+                android:id="@+id/closeToParkLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:drawableStart="@drawable/ic_check_grey"
+                android:text="Park"
+                app:layout_constraintStart_toStartOf="@+id/closeToLabel"
+                app:layout_constraintTop_toBottomOf="@+id/closeToShopsLabel" />
+
+            <TextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="@{realty.description}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionLabel" />
 
@@ -200,10 +244,12 @@
                 android:id="@+id/staticMap"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/closeToParkLabel" />
 
             <TextView
                 android:id="@+id/locationLabel"
@@ -231,7 +277,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:text="@{realty.address}"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -7,3 +7,9 @@ var View.visible: Boolean
     set(value) {
         visibility = if (value) View.VISIBLE else View.INVISIBLE
     }
+
+var View.gone: Boolean
+    get() = visibility == View.GONE
+    set(value) {
+        visibility = if (value) View.GONE else View.VISIBLE
+    }

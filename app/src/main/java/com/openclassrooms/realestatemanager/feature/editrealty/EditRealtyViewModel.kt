@@ -41,6 +41,21 @@ class EditRealtyViewModel(
     fun editDescription(description: String) =
             realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(description = description))
 
+    fun editPoiMetro(newValue: Boolean) =
+        realtyRepository.currentRealty.value?.pointsOfInterest?.let {
+            realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(pointsOfInterest = it.copy(closeToMetro = newValue)))
+        }
+
+    fun editPoiShops(newValue: Boolean) =
+            realtyRepository.currentRealty.value?.pointsOfInterest?.let {
+                realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(pointsOfInterest = it.copy(closeToShops = newValue)))
+            }
+
+    fun editPoiPark(newValue: Boolean) =
+            realtyRepository.currentRealty.value?.pointsOfInterest?.let {
+                realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(pointsOfInterest = it.copy(closeToPark = newValue)))
+            }
+
     fun addPhoto(photo: Photo) =
             realtyRepository.currentRealty.value?.let {
                 realtyRepository.setCurrentRealty(it.copy(photos = it.photos.plus(photo)))

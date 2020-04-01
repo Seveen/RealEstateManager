@@ -18,6 +18,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.model.Realty
 import com.openclassrooms.realestatemanager.databinding.FragmentDetailsBinding
+import com.openclassrooms.realestatemanager.utils.gone
 import com.openclassrooms.realestatemanager.utils.visible
 import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.android.synthetic.main.fragment_details.view.*
@@ -70,6 +71,12 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         progressBar.visible = false
         binding.realty = realty
         adapter.updateData(realty.photos)
+        with (realty.pointsOfInterest) {
+            closeToLabel.gone = (closeToMetro || closeToPark || closeToShops).not()
+            closeToMetroLabel.gone = closeToMetro.not()
+            closeToShopsLabel.gone = closeToShops.not()
+            closeToParkLabel.gone = closeToPark.not()
+        }
     }
 
     private fun overrideToolbar() {
