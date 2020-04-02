@@ -36,9 +36,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 //TODO: Add way to remove photo
-//TODO: Add way to change name of photo
-//TODO: Add validation: at least one photo
-//TODO: Add processing: at save, find latLng via geocoding
+//TODO: Add way to add/change name of photo
 //TODO: Add confirmation: message if everything went fine at save
 //TODO: Handle dollar/euro switch
 
@@ -151,11 +149,12 @@ class EditRealtyFragment : Fragment() {
         shopsSwitch.isChecked = realty.pointsOfInterest.closeToShops
     }
 
+    //TODO: Feedback on saved/not saved
     private fun saveRealty() {
-        editRealtyViewModel.saveAndThen {
+        editRealtyViewModel.saveAndThen(doNext = {
             Log.d(javaClass.canonicalName, "Saved")
             findNavController().navigateUp()
-        }
+        }, doOnError = {Log.d(javaClass.canonicalName, "Not saved")})
     }
 
     private fun CharSequence?.coerceToIntAndUpdate(view: TextInputLayout, saveFn: (Int) -> Unit) {

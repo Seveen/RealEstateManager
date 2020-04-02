@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.feature.allrealty
+package com.openclassrooms.realestatemanager.feature.map
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -9,7 +9,7 @@ import com.openclassrooms.realestatemanager.data.model.Realty
 import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
 import kotlinx.coroutines.Dispatchers
 
-class AllRealtyViewModel(private val realtyRepository: RealtyRepository) : ViewModel() {
+class MapViewModel(private val realtyRepository: RealtyRepository) : ViewModel() {
 
     private val _realtyList = realtyRepository
             .getAllRealty()
@@ -18,8 +18,14 @@ class AllRealtyViewModel(private val realtyRepository: RealtyRepository) : ViewM
     val realtyList: LiveData<List<Realty>>
         get() = _realtyList
 
-    fun setCurrentRealty(realty: Realty) {
+    private fun setCurrentRealty(realty: Realty) {
         Log.d("REPOSITORYLOG", "from allrealtyvm")
         realtyRepository.setCurrentRealty(realty)
+    }
+
+    fun setCurrentRealtyById(id: Int) {
+        realtyList.value?.find { it.id == id }?.let {
+            setCurrentRealty(it)
+        }
     }
 }

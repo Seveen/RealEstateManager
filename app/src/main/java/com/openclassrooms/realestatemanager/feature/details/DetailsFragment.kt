@@ -11,10 +11,8 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.GoogleMapOptions
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.MarkerOptions
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.model.Realty
 import com.openclassrooms.realestatemanager.databinding.FragmentDetailsBinding
@@ -24,12 +22,16 @@ import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.android.synthetic.main.fragment_details.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+//TODO : Check connectivity before updating map
 class DetailsFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var binding: FragmentDetailsBinding
 
     private val detailsViewModel: DetailsViewModel by viewModel()
     private val adapter = DetailsPhotoAdapter(emptyList())
+
+    private var map: GoogleMap? = null
+    private var currentRealty: Realty? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -69,6 +71,7 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
 
     private fun render(realty: Realty) {
         progressBar.visible = false
+        currentRealty = realty
         binding.realty = realty
         adapter.updateData(realty.photos)
         with (realty.pointsOfInterest) {
@@ -76,6 +79,9 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
             closeToMetroLabel.gone = closeToMetro.not()
             closeToShopsLabel.gone = closeToShops.not()
             closeToParkLabel.gone = closeToPark.not()
+        }
+        realty.location?.let {
+            map?.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 16f))
         }
     }
 
@@ -91,6 +97,12 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
-
+        map = googleMap
+        currentRealty?.location?.let { location ->
+            map?.apply {
+                moveCamera(CameraUpdateFactory.newLatLngZoom(location, 16f))
+                addMarker(MarkerOptions().position(location))
+            }
+        }
     }
 }

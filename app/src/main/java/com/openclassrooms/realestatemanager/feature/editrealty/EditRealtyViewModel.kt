@@ -66,10 +66,11 @@ class EditRealtyViewModel(
                 realtyRepository.setCurrentRealty(it.copy(photos = it.photos.minus(photo)))
             }
 
-    fun saveAndThen(doNext: () -> Unit) = viewModelScope.launch {
+    fun saveAndThen(doNext: () -> Unit, doOnError: () -> Unit) = viewModelScope.launch {
+        var saved = false
         withContext(Dispatchers.IO) {
-            realtyRepository.saveCurrentRealty()
+            saved = realtyRepository.saveCurrentRealty()
         }
-        doNext()
+        if (saved) doNext() else doOnError()
     }
 }

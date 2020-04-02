@@ -1,7 +1,9 @@
 package com.openclassrooms.realestatemanager.feature.mainactivity
 
+import android.Manifest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import com.openclassrooms.realestatemanager.PhoneNavGraphDirections
@@ -16,6 +18,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     private val mainViewModel: MainActivityViewModel by viewModel()
+
+    private val PERMISSIONS_ACCESS_CODE = 126;
 
     private val navListener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
         when (destination.id) {
@@ -37,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             navController.navigateUp()
         }
+
     }
 
     override fun onResume() {
@@ -110,5 +115,9 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    private fun getLocationPermission() {
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSIONS_ACCESS_CODE)
     }
 }
