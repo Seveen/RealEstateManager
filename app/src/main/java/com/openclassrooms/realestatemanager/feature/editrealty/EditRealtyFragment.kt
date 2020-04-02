@@ -23,10 +23,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.model.Photo
 import com.openclassrooms.realestatemanager.data.model.Realty
-import com.openclassrooms.realestatemanager.utils.onSelected
-import com.openclassrooms.realestatemanager.utils.setText
-import com.openclassrooms.realestatemanager.utils.toEditable
-import com.openclassrooms.realestatemanager.utils.visible
+import com.openclassrooms.realestatemanager.utils.*
 import kotlinx.android.synthetic.main.fragment_edit_realty.*
 import kotlinx.android.synthetic.main.fragment_edit_realty.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -144,17 +141,24 @@ class EditRealtyFragment : Fragment() {
         numberBathroomsEditText.text = realty.numberOfBathrooms.toString().toEditable()
         numberBedroomsEditText.text = realty.numberOfBedrooms.toString().toEditable()
         addressEditText.text = realty.address.toEditable()
-        metroSwitch.isChecked = realty.pointsOfInterest.closeToMetro
-        parkSwitch.isChecked = realty.pointsOfInterest.closeToPark
-        shopsSwitch.isChecked = realty.pointsOfInterest.closeToShops
+        metroSwitch.isChecked = realty.isCloseToMetro
+        parkSwitch.isChecked = realty.isCloseToPark
+        shopsSwitch.isChecked = realty.isCloseToShops
     }
 
     //TODO: Feedback on saved/not saved
     private fun saveRealty() {
-        editRealtyViewModel.saveAndThen(doNext = {
-            Log.d(javaClass.canonicalName, "Saved")
-            findNavController().navigateUp()
-        }, doOnError = {Log.d(javaClass.canonicalName, "Not saved")})
+        if (Utils.isInternetAvailable(requireContext())) {
+            editRealtyViewModel.saveAndThen(doNext = {
+                Log.d(javaClass.canonicalName, "Saved")
+                findNavController().navigateUp()
+            }, doOnError = {Log.d(javaClass.canonicalName, "Not saved")})
+        } else {
+            editRealtyViewModel.saveOfflineAndThen(doNext = {
+                Log.d(javaClass.canonicalName, "Saved")
+                findNavController().navigateUp()
+            }, doOnError = {Log.d(javaClass.canonicalName, "Not saved")})
+        }
     }
 
     private fun CharSequence?.coerceToIntAndUpdate(view: TextInputLayout, saveFn: (Int) -> Unit) {

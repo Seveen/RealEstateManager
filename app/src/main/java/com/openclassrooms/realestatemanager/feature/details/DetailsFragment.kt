@@ -74,11 +74,11 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         currentRealty = realty
         binding.realty = realty
         adapter.updateData(realty.photos)
-        with (realty.pointsOfInterest) {
-            closeToLabel.gone = (closeToMetro || closeToPark || closeToShops).not()
-            closeToMetroLabel.gone = closeToMetro.not()
-            closeToShopsLabel.gone = closeToShops.not()
-            closeToParkLabel.gone = closeToPark.not()
+        with (realty) {
+            closeToLabel.gone = (isCloseToMetro || isCloseToPark || isCloseToShops).not()
+            closeToMetroLabel.gone = isCloseToMetro.not()
+            closeToShopsLabel.gone = isCloseToShops.not()
+            closeToParkLabel.gone = isCloseToPark.not()
         }
         realty.location?.let {
             map?.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 16f))

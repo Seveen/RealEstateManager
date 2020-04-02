@@ -104,6 +104,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == PERMISSIONS_ACCESS_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) render()
+        if (requestCode == PERMISSIONS_ACCESS_CODE
+                && grantResults.size == 1
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) render()
     }
 }

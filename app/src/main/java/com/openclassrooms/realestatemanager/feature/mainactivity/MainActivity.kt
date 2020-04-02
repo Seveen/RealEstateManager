@@ -2,13 +2,16 @@ package com.openclassrooms.realestatemanager.feature.mainactivity
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import com.openclassrooms.realestatemanager.PhoneNavGraphDirections
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyFragmentDirections
+import com.openclassrooms.realestatemanager.utils.ConnectionLiveData
 import com.openclassrooms.realestatemanager.utils.visible
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,6 +45,12 @@ class MainActivity : AppCompatActivity() {
             navController.navigateUp()
         }
 
+        ConnectionLiveData(applicationContext).observe(this) { isConnected ->
+            if (isConnected) {
+                Log.d(javaClass.canonicalName, "Updating locations")
+                mainViewModel.updateGeolocations()
+            }
+        }
     }
 
     override fun onResume() {

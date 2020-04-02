@@ -42,19 +42,16 @@ class EditRealtyViewModel(
             realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(description = description))
 
     fun editPoiMetro(newValue: Boolean) =
-        realtyRepository.currentRealty.value?.pointsOfInterest?.let {
-            realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(pointsOfInterest = it.copy(closeToMetro = newValue)))
-        }
+            realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(isCloseToMetro = newValue))
+
 
     fun editPoiShops(newValue: Boolean) =
-            realtyRepository.currentRealty.value?.pointsOfInterest?.let {
-                realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(pointsOfInterest = it.copy(closeToShops = newValue)))
-            }
+            realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(isCloseToShops = newValue))
+
 
     fun editPoiPark(newValue: Boolean) =
-            realtyRepository.currentRealty.value?.pointsOfInterest?.let {
-                realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(pointsOfInterest = it.copy(closeToPark = newValue)))
-            }
+            realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(isCloseToPark = newValue))
+
 
     fun addPhoto(photo: Photo) =
             realtyRepository.currentRealty.value?.let {
@@ -70,6 +67,14 @@ class EditRealtyViewModel(
         var saved = false
         withContext(Dispatchers.IO) {
             saved = realtyRepository.saveCurrentRealty()
+        }
+        if (saved) doNext() else doOnError()
+    }
+
+    fun saveOfflineAndThen(doNext: () -> Unit, doOnError: () -> Unit) = viewModelScope.launch {
+        var saved = false
+        withContext(Dispatchers.IO) {
+            saved = realtyRepository.saveCurrentRealtyOffline()
         }
         if (saved) doNext() else doOnError()
     }

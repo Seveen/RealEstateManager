@@ -25,8 +25,15 @@ class RoomRepository(private val realtyDao: RealtyDao, private val geocodingClie
         return false
     }
 
+    override suspend fun saveCurrentRealtyOffline(): Boolean {
+        currentRealty.value?.let {
+            return saveRealtyOffline(it)
+        }
+        return false
+    }
+
     override suspend fun saveRealty(realty: Realty): Boolean {
-        Log.d(javaClass.canonicalName, "Saving")
+        Log.d(javaClass.canonicalName, "Saving offline")
 
         if (realty.photos.isEmpty()) return false
 
@@ -38,9 +45,24 @@ class RoomRepository(private val realtyDao: RealtyDao, private val geocodingClie
         return true
     }
 
+    override suspend fun saveRealtyOffline(realty: Realty): Boolean {
+        Log.d(javaClass.canonicalName, "Saving")
+
+        if (realty.photos.isEmpty()) return false
+
+        when (realty.id) {
+            0 -> realtyDao.insert(realty)
+            else -> realtyDao.update(realty)
+        }
+        return true
+    }
+
+    override suspend fun updateGeolocation(realty: Realty) {
+        realtyDao.update(realty.copy(location = geocodingClient.getGeocoding(realty.address)))
+    }
+
     override fun getAllRealty(): Flow<List<Realty>> =
         realtyDao.getAllRealtyDistinctUntilChanged()
-
 
     override fun getRealtyById(id: Int): Flow<Realty> =
         realtyDao.getRealtyById(id)
