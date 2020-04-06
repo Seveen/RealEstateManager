@@ -104,6 +104,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="Description"
                 app:errorEnabled="true"
@@ -123,6 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="Surface"
                 app:errorEnabled="true"
@@ -142,6 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="Number of rooms"
                 app:errorEnabled="true"
@@ -161,6 +164,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="Number of bathrooms"
                 app:errorEnabled="true"
@@ -180,6 +184,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="Number of bedrooms"
                 app:errorEnabled="true"
@@ -199,6 +204,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="Address"
                 app:errorEnabled="true"
@@ -224,24 +230,24 @@
                 app:layout_constraintTop_toBottomOf="@+id/addressLayoutView" />
 
             <TextView
-                android:id="@+id/closeToMetroLabel"
+                android:id="@+id/closeToSubwayLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@id/metroSwitch"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/closeToLabel"
-                android:text="Metro"/>
+                android:text="Subway"
+                app:layout_constraintEnd_toStartOf="@id/subwaySwitch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/closeToLabel" />
 
             <Switch
-                android:id="@+id/metroSwitch"
+                android:id="@+id/subwaySwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/closeToMetroLabel"
-                app:layout_constraintTop_toTopOf="@id/closeToMetroLabel" />
+                app:layout_constraintStart_toEndOf="@id/closeToSubwayLabel"
+                app:layout_constraintTop_toTopOf="@id/closeToSubwayLabel" />
 
             <TextView
                 android:id="@+id/closeToShopsLabel"
@@ -251,7 +257,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/closeToMetroLabel"
+                app:layout_constraintTop_toBottomOf="@+id/closeToSubwayLabel"
                 android:text="Shops"/>
 
             <Switch

@@ -41,17 +41,14 @@ class EditRealtyViewModel(
     fun editDescription(description: String) =
             realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(description = description))
 
-    fun editPoiMetro(newValue: Boolean) =
-            realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(isCloseToMetro = newValue))
-
+    fun editPoiSubway(newValue: Boolean) =
+            realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(isCloseToSubway = newValue))
 
     fun editPoiShops(newValue: Boolean) =
             realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(isCloseToShops = newValue))
 
-
     fun editPoiPark(newValue: Boolean) =
             realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(isCloseToPark = newValue))
-
 
     fun addPhoto(photo: Photo) =
             realtyRepository.currentRealty.value?.let {
@@ -63,18 +60,10 @@ class EditRealtyViewModel(
                 realtyRepository.setCurrentRealty(it.copy(photos = it.photos.minus(photo)))
             }
 
-    fun saveAndThen(doNext: () -> Unit, doOnError: () -> Unit) = viewModelScope.launch {
+    fun saveAndThen(isNetworkAvailable: Boolean, doNext: () -> Unit, doOnError: () -> Unit) = viewModelScope.launch {
         var saved = false
         withContext(Dispatchers.IO) {
-            saved = realtyRepository.saveCurrentRealty()
-        }
-        if (saved) doNext() else doOnError()
-    }
-
-    fun saveOfflineAndThen(doNext: () -> Unit, doOnError: () -> Unit) = viewModelScope.launch {
-        var saved = false
-        withContext(Dispatchers.IO) {
-            saved = realtyRepository.saveCurrentRealtyOffline()
+            saved = realtyRepository.saveCurrentRealty(isNetworkAvailable)
         }
         if (saved) doNext() else doOnError()
     }

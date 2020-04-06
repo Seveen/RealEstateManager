@@ -3,6 +3,7 @@ package com.openclassrooms.realestatemanager.data.repository
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.openclassrooms.realestatemanager.data.model.Realty
+import com.openclassrooms.realestatemanager.data.model.RealtyQuery
 import com.openclassrooms.realestatemanager.data.room.RealtyDao
 import com.openclassrooms.realestatemanager.data.service.GeocodingClient
 import kotlinx.coroutines.flow.Flow
@@ -18,22 +19,16 @@ class RoomRepository(private val realtyDao: RealtyDao, private val geocodingClie
         _currentRealty.value = realty
     }
 
-    override suspend fun saveCurrentRealty(): Boolean {
+    override suspend fun saveCurrentRealty(isNetworkAvailable: Boolean): Boolean {
         currentRealty.value?.let {
-            return saveRealty(it)
-        }
-        return false
-    }
-
-    override suspend fun saveCurrentRealtyOffline(): Boolean {
-        currentRealty.value?.let {
-            return saveRealtyOffline(it)
+            return if (isNetworkAvailable) saveRealty(it)
+            else saveRealtyOffline(it)
         }
         return false
     }
 
     override suspend fun saveRealty(realty: Realty): Boolean {
-        Log.d(javaClass.canonicalName, "Saving offline")
+        Log.d(javaClass.canonicalName, "Saving")
 
         if (realty.photos.isEmpty()) return false
 
@@ -42,11 +37,12 @@ class RoomRepository(private val realtyDao: RealtyDao, private val geocodingClie
             0 -> realtyDao.insert(localizedRealty)
             else -> realtyDao.update(localizedRealty)
         }
+
         return true
     }
 
     override suspend fun saveRealtyOffline(realty: Realty): Boolean {
-        Log.d(javaClass.canonicalName, "Saving")
+        Log.d(javaClass.canonicalName, "Saving offline")
 
         if (realty.photos.isEmpty()) return false
 
@@ -66,5 +62,8 @@ class RoomRepository(private val realtyDao: RealtyDao, private val geocodingClie
 
     override fun getRealtyById(id: Int): Flow<Realty> =
         realtyDao.getRealtyById(id)
+
+    override fun getRealtyByQuery(query: RealtyQuery): Flow<Realty> =
+        realtyDao.getRealtyWith(query.isCloseToSubway)
 
 }

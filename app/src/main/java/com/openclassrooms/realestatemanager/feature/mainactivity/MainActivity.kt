@@ -1,10 +1,8 @@
 package com.openclassrooms.realestatemanager.feature.mainactivity
 
-import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
@@ -22,9 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainActivityViewModel by viewModel()
 
-    private val PERMISSIONS_ACCESS_CODE = 126;
-
-    private val navListener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
+    private val navListener = NavController.OnDestinationChangedListener { _, destination, _ ->
         when (destination.id) {
             R.id.allRealtyFragment -> renderAllRealtyMenu()
             R.id.detailsFragment -> renderDetailsMenu()
@@ -124,9 +120,5 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-    }
-
-    private fun getLocationPermission() {
-        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSIONS_ACCESS_CODE)
     }
 }

@@ -10,6 +10,7 @@ import com.openclassrooms.realestatemanager.feature.details.DetailsViewModel
 import com.openclassrooms.realestatemanager.feature.editrealty.EditRealtyViewModel
 import com.openclassrooms.realestatemanager.feature.mainactivity.MainActivityViewModel
 import com.openclassrooms.realestatemanager.feature.map.MapViewModel
+import com.openclassrooms.realestatemanager.feature.search.SearchViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -43,4 +44,8 @@ val editRealtyModule = module {
 
 val mapModule = module {
     viewModel { MapViewModel(get()) }
+}
+
+val searchModule = module {
+    viewModel { SearchViewModel(get()) }
 }

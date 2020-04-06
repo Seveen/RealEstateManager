@@ -13,13 +13,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.content.FileProvider
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
-import com.google.android.material.textfield.TextInputLayout
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.model.Photo
 import com.openclassrooms.realestatemanager.data.model.Realty
@@ -36,6 +34,7 @@ import java.util.*
 //TODO: Add way to add/change name of photo
 //TODO: Add confirmation: message if everything went fine at save
 //TODO: Handle dollar/euro switch
+//TODO: Add creation date picker and sold/sale date toggle+date picker
 
 class EditRealtyFragment : Fragment() {
 
@@ -88,43 +87,48 @@ class EditRealtyFragment : Fragment() {
 
     private fun wireUi() {
         typeSpinner.onSelected { editRealtyViewModel.editType(it?: "") }
-        districtEditText.doOnTextChanged { text, _, _, _ -> editRealtyViewModel.editDistrict(text?.toString()?: "")}
 
-        priceEditText.doOnTextChanged { text, _, _, _ ->
-            text.coerceToDoubleAndUpdate(priceLayoutView) {
-                editRealtyViewModel.editPrice(it)
-            }
-        }
+        districtLayoutView.validateAndUpdate(
+                validationFn = { isNullOrBlank("Should not be blank") },
+                updateFn = { editRealtyViewModel.editDistrict(it) }
+        )
 
-        descriptionEditText.doOnTextChanged { text, _, _, _ -> editRealtyViewModel.editDescription(text?.toString()?: "")}
+        priceLayoutView.validateAndUpdate(
+                validationFn = { convertToDouble("Not a number") },
+                updateFn = { editRealtyViewModel.editPrice(it) }
+        )
 
-        surfaceEditText.doOnTextChanged { text, _, _, _ ->
-            text.coerceToDoubleAndUpdate(surfaceLayoutView) {
-                editRealtyViewModel.editSurface(it)
-            }
-        }
+        descriptionLayoutView.validateAndUpdate(
+                validationFn = { isNullOrBlank("Should not be blank") },
+                updateFn = { editRealtyViewModel.editDescription(it) }
+        )
 
-        numberRoomsEditText.doOnTextChanged { text, _, _, _ ->
-            text.coerceToIntAndUpdate(numberRoomsLayoutView) {
-                editRealtyViewModel.editNbOfRooms(it)
-            }
-        }
+        surfaceLayoutView.validateAndUpdate(
+                validationFn = { convertToDouble("Not a number") },
+                updateFn = { editRealtyViewModel.editSurface(it) }
+        )
 
-        numberBathroomsEditText.doOnTextChanged { text, _, _, _ ->
-            text.coerceToIntAndUpdate(numberBathroomsLayoutView) {
-                editRealtyViewModel.editNbOfBathrooms(it)
-            }
-        }
+        numberRoomsLayoutView.validateAndUpdate(
+                validationFn = { convertToInt("Not a number") },
+                updateFn = {editRealtyViewModel.editNbOfRooms(it)}
+        )
 
-        numberBedroomsEditText.doOnTextChanged { text, _, _, _ ->
-            text.coerceToIntAndUpdate(numberBedroomsLayoutView) {
-                editRealtyViewModel.editNbOfBedrooms(it)
-            }
-        }
+        numberBathroomsLayoutView.validateAndUpdate(
+                validationFn = { convertToInt("Not a number") },
+                updateFn = {editRealtyViewModel.editNbOfBathrooms(it)}
+        )
 
-        addressEditText.doOnTextChanged { text, _, _, _ -> editRealtyViewModel.editAddress(text?.toString()?: "")}
+        numberBedroomsLayoutView.validateAndUpdate(
+                validationFn = { convertToInt("Not a number") },
+                updateFn = {editRealtyViewModel.editNbOfBedrooms(it)}
+        )
 
-        metroSwitch.setOnCheckedChangeListener { _, value -> editRealtyViewModel.editPoiMetro(value) }
+        addressLayoutView.validateAndUpdate(
+                validationFn = { isNullOrBlank("Should not be blank") },
+                updateFn = {editRealtyViewModel.editAddress(it)}
+        )
+
+        subwaySwitch.setOnCheckedChangeListener { _, value -> editRealtyViewModel.editPoiSubway(value) }
         parkSwitch.setOnCheckedChangeListener {_, value -> editRealtyViewModel.editPoiPark(value)}
         shopsSwitch.setOnCheckedChangeListener { _, value -> editRealtyViewModel.editPoiShops(value) }
 
@@ -141,43 +145,25 @@ class EditRealtyFragment : Fragment() {
         numberBathroomsEditText.text = realty.numberOfBathrooms.toString().toEditable()
         numberBedroomsEditText.text = realty.numberOfBedrooms.toString().toEditable()
         addressEditText.text = realty.address.toEditable()
-        metroSwitch.isChecked = realty.isCloseToMetro
+        subwaySwitch.isChecked = realty.isCloseToSubway
         parkSwitch.isChecked = realty.isCloseToPark
         shopsSwitch.isChecked = realty.isCloseToShops
     }
 
     //TODO: Feedback on saved/not saved
     private fun saveRealty() {
-        if (Utils.isInternetAvailable(requireContext())) {
-            editRealtyViewModel.saveAndThen(doNext = {
+        if (validateForm()) editRealtyViewModel.saveAndThen(
+            isNetworkAvailable = Utils.isInternetAvailable(requireContext()),
+            doNext = {
                 Log.d(javaClass.canonicalName, "Saved")
                 findNavController().navigateUp()
-            }, doOnError = {Log.d(javaClass.canonicalName, "Not saved")})
-        } else {
-            editRealtyViewModel.saveOfflineAndThen(doNext = {
-                Log.d(javaClass.canonicalName, "Saved")
-                findNavController().navigateUp()
-            }, doOnError = {Log.d(javaClass.canonicalName, "Not saved")})
-        }
+            },
+            doOnError = {Log.d(javaClass.canonicalName, "Not saved")}
+        )
     }
 
-    private fun CharSequence?.coerceToIntAndUpdate(view: TextInputLayout, saveFn: (Int) -> Unit) {
-        val number = toString().trim().toIntOrNull()
-        if (number == null) view.error = "Not a number"
-        number?.let {
-            view.error = null
-            saveFn(it)
-        }
-    }
-
-    private fun CharSequence?.coerceToDoubleAndUpdate(view: TextInputLayout, saveFn: (Double) -> Unit) {
-        val number = toString().trim().toDoubleOrNull()
-        if (number == null) view.error = "Not a number"
-        number?.let {
-            view.error = null
-            saveFn(it)
-        }
-    }
+    //TODO: Validate
+    private fun validateForm() = true
 
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->

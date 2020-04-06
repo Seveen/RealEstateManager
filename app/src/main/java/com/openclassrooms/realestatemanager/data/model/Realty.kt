@@ -1,7 +1,7 @@
 package com.openclassrooms.realestatemanager.data.model
 
-import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.google.android.gms.maps.model.LatLng
 import java.util.*
@@ -17,13 +17,15 @@ data class Realty(
         val numberOfBedrooms: Int,
         val district: String,
         val address: String,
-        val isCloseToMetro: Boolean,
+        val isCloseToSubway: Boolean,
         val isCloseToShops: Boolean,
         val isCloseToPark: Boolean,
         val isSold: Boolean,
         val marketEntryDate: Date,
         val saleDate: Date?,
-        @Embedded val assignedEstateAgent: EstateAgent,
+        @ForeignKey(entity = EstateAgent::class,
+                parentColumns = ["id"],
+                childColumns = ["id"]) val assignedEstateAgentId: Int,
         val description: String,
         val photos: List<Photo>,
         val location: LatLng?
@@ -38,13 +40,13 @@ data class Realty(
                 numberOfBedrooms = 0,
                 district = "",
                 address = "",
-                isCloseToMetro = false,
+                isCloseToSubway = false,
                 isCloseToShops = false,
                 isCloseToPark = false,
                 isSold = false,
                 marketEntryDate = Date(),
                 saleDate = null,
-                assignedEstateAgent = EstateAgent.default(),
+                assignedEstateAgentId = 0,
                 description = "",
                 photos = emptyList(),
                 location = null)

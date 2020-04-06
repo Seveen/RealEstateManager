@@ -75,8 +75,8 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         binding.realty = realty
         adapter.updateData(realty.photos)
         with (realty) {
-            closeToLabel.gone = (isCloseToMetro || isCloseToPark || isCloseToShops).not()
-            closeToMetroLabel.gone = isCloseToMetro.not()
+            closeToLabel.gone = (isCloseToSubway || isCloseToPark || isCloseToShops).not()
+            closeToSubwayLabel.gone = isCloseToSubway.not()
             closeToShopsLabel.gone = isCloseToShops.not()
             closeToParkLabel.gone = isCloseToPark.not()
         }

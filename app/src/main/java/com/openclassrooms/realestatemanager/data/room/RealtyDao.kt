@@ -16,6 +16,9 @@ interface RealtyDao {
     @Query("SELECT * from realty_table WHERE id = :id")
     fun getRealtyById(id: Int): Flow<Realty>
 
+    @Query("SELECT * from realty_table WHERE isCloseToSubway = :isCloseToSubway")
+    fun getRealtyWith(isCloseToSubway: Boolean): Flow<Realty>
+
     @Update
     suspend fun update(realty: Realty)
 
