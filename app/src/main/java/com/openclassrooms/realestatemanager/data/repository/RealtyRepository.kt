@@ -14,5 +14,5 @@ interface RealtyRepository {
     suspend fun updateGeolocation(realty: Realty)
     fun getAllRealty(): Flow<List<Realty>>
     fun getRealtyById(id: Int): Flow<Realty>
-    fun getRealtyByQuery(query: RealtyQuery): Flow<Realty>
+    fun getRealtyViaQuery(query: RealtyQuery): Flow<Realty>
 }

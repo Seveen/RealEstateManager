@@ -1,6 +1,7 @@
-package com.openclassrooms.realestatemanager.data.room
+package com.openclassrooms.realestatemanager.data.database
 
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.openclassrooms.realestatemanager.data.model.Realty
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -16,8 +17,8 @@ interface RealtyDao {
     @Query("SELECT * from realty_table WHERE id = :id")
     fun getRealtyById(id: Int): Flow<Realty>
 
-    @Query("SELECT * from realty_table WHERE isCloseToSubway = :isCloseToSubway")
-    fun getRealtyWith(isCloseToSubway: Boolean): Flow<Realty>
+    @RawQuery(observedEntities = [Realty::class])
+    fun getRealtyViaQuery(query: SupportSQLiteQuery): Flow<Realty>
 
     @Update
     suspend fun update(realty: Realty)

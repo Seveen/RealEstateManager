@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.data.room
+package com.openclassrooms.realestatemanager.data.database
 
 import androidx.room.*
 import com.openclassrooms.realestatemanager.data.model.EstateAgent

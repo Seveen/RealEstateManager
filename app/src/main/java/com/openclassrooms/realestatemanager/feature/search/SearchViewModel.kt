@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 
 class SearchViewModel(private val realtyRepository: RealtyRepository) : ViewModel() {
 
-    private val _currentQuery = MutableLiveData<RealtyQuery>(RealtyQuery.default())
+    private val _currentQuery = MutableLiveData(RealtyQuery.default())
     val currentQuery: LiveData<RealtyQuery>
         get() = _currentQuery
 
@@ -21,7 +21,7 @@ class SearchViewModel(private val realtyRepository: RealtyRepository) : ViewMode
     }
 
     public fun search(): LiveData<Realty> {
-        return realtyRepository.getRealtyByQuery(_currentQuery.value!!)
+        return realtyRepository.getRealtyViaQuery(_currentQuery.value!!)
                     .asLiveData(Dispatchers.Default + viewModelScope.coroutineContext)
     }
 }

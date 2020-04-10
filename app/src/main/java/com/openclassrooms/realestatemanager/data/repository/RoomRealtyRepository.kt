@@ -2,13 +2,17 @@ package com.openclassrooms.realestatemanager.data.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.sqlite.db.SimpleSQLiteQuery
+import com.openclassrooms.realestatemanager.data.database.RealtyDao
 import com.openclassrooms.realestatemanager.data.model.Realty
 import com.openclassrooms.realestatemanager.data.model.RealtyQuery
-import com.openclassrooms.realestatemanager.data.room.RealtyDao
 import com.openclassrooms.realestatemanager.data.service.GeocodingClient
 import kotlinx.coroutines.flow.Flow
 
-class RoomRepository(private val realtyDao: RealtyDao, private val geocodingClient: GeocodingClient) : RealtyRepository {
+class RoomRealtyRepository(
+        private val realtyDao: RealtyDao,
+        private val geocodingClient: GeocodingClient
+) : RealtyRepository {
 
     private var _currentRealty: MutableLiveData<Realty> = MutableLiveData()
 
@@ -63,7 +67,11 @@ class RoomRepository(private val realtyDao: RealtyDao, private val geocodingClie
     override fun getRealtyById(id: Int): Flow<Realty> =
         realtyDao.getRealtyById(id)
 
-    override fun getRealtyByQuery(query: RealtyQuery): Flow<Realty> =
-        realtyDao.getRealtyWith(query.isCloseToSubway)
+    override fun getRealtyViaQuery(query: RealtyQuery): Flow<Realty> {
+        val (stringQuery, bindParameters) = query.toSQLQuery()
+
+        return realtyDao.getRealtyViaQuery(
+                SimpleSQLiteQuery(stringQuery, bindParameters))
+    }
 
 }

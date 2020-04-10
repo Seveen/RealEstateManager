@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.data.room
+package com.openclassrooms.realestatemanager.data.database
 
 import androidx.room.TypeConverter
 import com.google.android.gms.maps.model.LatLng

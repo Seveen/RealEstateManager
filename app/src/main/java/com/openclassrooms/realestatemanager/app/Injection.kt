@@ -1,10 +1,12 @@
 package com.openclassrooms.realestatemanager.app
 
 import androidx.room.Room
+import com.openclassrooms.realestatemanager.data.database.RealtyDatabase
+import com.openclassrooms.realestatemanager.data.repository.LocationRepository
 import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
-import com.openclassrooms.realestatemanager.data.repository.RoomRepository
-import com.openclassrooms.realestatemanager.data.room.RealtyDatabase
+import com.openclassrooms.realestatemanager.data.repository.RoomRealtyRepository
 import com.openclassrooms.realestatemanager.data.service.GeocodingClient
+import com.openclassrooms.realestatemanager.data.service.LocationService
 import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyViewModel
 import com.openclassrooms.realestatemanager.feature.details.DetailsViewModel
 import com.openclassrooms.realestatemanager.feature.editrealty.EditRealtyViewModel
@@ -21,8 +23,10 @@ val repoModule = module {
                 RealtyDatabase::class.java, "realty_database"
         ).build()}
     single { GeocodingClient() }
+    single { LocationService(get()) }
     single { get<RealtyDatabase>().realtyDao() }
-    single<RealtyRepository> { RoomRepository(get(), get()) }
+    single<RealtyRepository> { RoomRealtyRepository(get(), get()) }
+    single { LocationRepository(get()) }
 //    single<RealtyRepository> { DebugRepository() }
 }
 
@@ -43,7 +47,7 @@ val editRealtyModule = module {
 }
 
 val mapModule = module {
-    viewModel { MapViewModel(get()) }
+    viewModel { MapViewModel(get(), get()) }
 }
 
 val searchModule = module {
