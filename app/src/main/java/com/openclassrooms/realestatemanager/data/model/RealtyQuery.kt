@@ -29,7 +29,7 @@ data class RealtyQuery(
                 containsCondition = true
                 " WHERE"
             }
-            queryString += "priceInDollars <= ?"
+            queryString += " priceInDollars <= ?"
             bindParameters.add(it)
         }
 
@@ -40,7 +40,7 @@ data class RealtyQuery(
                 containsCondition = true
                 " WHERE"
             }
-            queryString += "isCloseToSubway = 1"
+            queryString += " isCloseToSubway = 1"
         }
 
         if (isCloseToShops) {
@@ -50,7 +50,7 @@ data class RealtyQuery(
                 containsCondition = true
                 " WHERE"
             }
-            queryString += "isCloseToShops = 1"
+            queryString += " isCloseToShops = 1"
         }
 
         if (isCloseToPark) {
@@ -60,7 +60,7 @@ data class RealtyQuery(
                 containsCondition = true
                 " WHERE"
             }
-            queryString += "isCloseToPark = 1"
+            queryString += " isCloseToPark = 1"
         }
 
         if (isSold) {
@@ -70,10 +70,11 @@ data class RealtyQuery(
                 containsCondition = true
                 " WHERE"
             }
-            queryString += "isSold = 1"
+            queryString += " isSold = 1"
         }
 
         queryString += ";"
+
         return Pair(queryString, bindParameters.toArray())
     }
 

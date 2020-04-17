@@ -47,9 +47,18 @@
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
-            android:id="@+id/action_searchFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            android:id="@+id/action_searchFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
     </fragment>
     <action android:id="@+id/action_global_mapFragment" app:destination="@id/mapFragment" />
     <action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment" /><action android:id="@+id/action_global_allRealtyFragment" app:destination="@id/allRealtyFragment"/>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.openclassrooms.realestatemanager.feature.search.SearchResultFragment"
+        android:label="fragment_search_result"
+        tools:layout="@layout/fragment_search_result" >
+        <action
+            android:id="@+id/action_searchResultFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 </navigation>

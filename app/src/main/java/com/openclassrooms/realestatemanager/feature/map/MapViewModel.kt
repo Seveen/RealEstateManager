@@ -1,7 +1,6 @@
 package com.openclassrooms.realestatemanager.feature.map
 
 import android.location.Location
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -32,7 +31,6 @@ class MapViewModel(
         get() = _locationFlow
 
     private fun setCurrentRealty(realty: Realty) {
-        Log.d("REPOSITORYLOG", "from allrealtyvm")
         realtyRepository.setCurrentRealty(realty)
     }
 

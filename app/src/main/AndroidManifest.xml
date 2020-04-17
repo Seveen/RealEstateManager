@@ -33,6 +33,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
+        <provider
+            android:authorities="com.openclassrooms.realestatemanager.data.provider"
+            android:name=".data.provider.RoomContentProvider"
+            android:exported="true"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

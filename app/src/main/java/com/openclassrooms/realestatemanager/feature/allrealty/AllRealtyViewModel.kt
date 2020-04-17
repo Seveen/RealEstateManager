@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.feature.allrealty
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -19,7 +18,6 @@ class AllRealtyViewModel(private val realtyRepository: RealtyRepository) : ViewM
         get() = _realtyList
 
     fun setCurrentRealty(realty: Realty) {
-        Log.d("REPOSITORYLOG", "from allrealtyvm")
         realtyRepository.setCurrentRealty(realty)
     }
 }

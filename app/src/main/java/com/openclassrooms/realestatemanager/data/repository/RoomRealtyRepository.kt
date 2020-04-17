@@ -19,6 +19,8 @@ class RoomRealtyRepository(
     override val currentRealty
         get() = _currentRealty
 
+    override var currentQuery: RealtyQuery = RealtyQuery.default()
+
     override fun setCurrentRealty(realty: Realty?) {
         _currentRealty.value = realty
     }
@@ -67,11 +69,14 @@ class RoomRealtyRepository(
     override fun getRealtyById(id: Int): Flow<Realty> =
         realtyDao.getRealtyById(id)
 
-    override fun getRealtyViaQuery(query: RealtyQuery): Flow<Realty> {
+    override fun getRealtyViaQuery(query: RealtyQuery): Flow<List<Realty>> {
         val (stringQuery, bindParameters) = query.toSQLQuery()
 
         return realtyDao.getRealtyViaQuery(
                 SimpleSQLiteQuery(stringQuery, bindParameters))
     }
+
+    override fun getSearchResult(): Flow<List<Realty>> =
+        getRealtyViaQuery(currentQuery)
 
 }

@@ -38,7 +38,7 @@ import java.util.*
 
 class EditRealtyFragment : Fragment() {
 
-    val REQUEST_IMAGE_CAPTURE = 1
+    private val REQUEST_IMAGE_CAPTURE = 1
 
     private val editRealtyViewModel: EditRealtyViewModel by viewModel()
 
@@ -110,22 +110,22 @@ class EditRealtyFragment : Fragment() {
 
         numberRoomsLayoutView.validateAndUpdate(
                 validationFn = { convertToInt("Not a number") },
-                updateFn = {editRealtyViewModel.editNbOfRooms(it)}
+                updateFn = { editRealtyViewModel.editNbOfRooms(it) }
         )
 
         numberBathroomsLayoutView.validateAndUpdate(
                 validationFn = { convertToInt("Not a number") },
-                updateFn = {editRealtyViewModel.editNbOfBathrooms(it)}
+                updateFn = { editRealtyViewModel.editNbOfBathrooms(it) }
         )
 
         numberBedroomsLayoutView.validateAndUpdate(
                 validationFn = { convertToInt("Not a number") },
-                updateFn = {editRealtyViewModel.editNbOfBedrooms(it)}
+                updateFn = { editRealtyViewModel.editNbOfBedrooms(it) }
         )
 
         addressLayoutView.validateAndUpdate(
                 validationFn = { isNullOrBlank("Should not be blank") },
-                updateFn = {editRealtyViewModel.editAddress(it)}
+                updateFn = { editRealtyViewModel.editAddress(it) }
         )
 
         subwaySwitch.setOnCheckedChangeListener { _, value -> editRealtyViewModel.editPoiSubway(value) }

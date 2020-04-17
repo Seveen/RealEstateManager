@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface RealtyRepository {
     val currentRealty: LiveData<Realty?>
+    var currentQuery: RealtyQuery
+
     fun setCurrentRealty(realty: Realty?)
     suspend fun saveCurrentRealty(isNetworkAvailable: Boolean): Boolean
     suspend fun saveRealty(realty: Realty): Boolean
@@ -14,5 +16,6 @@ interface RealtyRepository {
     suspend fun updateGeolocation(realty: Realty)
     fun getAllRealty(): Flow<List<Realty>>
     fun getRealtyById(id: Int): Flow<Realty>
-    fun getRealtyViaQuery(query: RealtyQuery): Flow<Realty>
+    fun getRealtyViaQuery(query: RealtyQuery): Flow<List<Realty>>
+    fun getSearchResult(): Flow<List<Realty>>
 }

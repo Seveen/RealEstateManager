@@ -17,6 +17,12 @@ abstract class RealtyDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: RealtyDatabase? = null
 
+        fun createInMemoryDatabase(context: Context) {
+            INSTANCE = Room.inMemoryDatabaseBuilder(context, RealtyDatabase::class.java)
+                    .allowMainThreadQueries()
+                    .build()
+        }
+
         fun getDatabase(context: Context): RealtyDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
