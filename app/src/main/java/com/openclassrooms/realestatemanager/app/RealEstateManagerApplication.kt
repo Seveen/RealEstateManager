@@ -20,7 +20,8 @@ class RealEstateManagerApplication : Application() {
                     detailsModule,
                     editRealtyModule,
                     mapModule,
-                    searchModule
+                    searchModule,
+                    addAgentModule
             )
         }
     }

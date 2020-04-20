@@ -61,4 +61,9 @@
             android:id="@+id/action_searchResultFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addAgentFragment"
+        android:name="com.openclassrooms.realestatemanager.feature.addagent.AddAgentFragment"
+        android:label="fragment_add_agent"
+        tools:layout="@layout/fragment_add_agent" /><action android:id="@+id/action_global_addAgentFragment" app:destination="@id/addAgentFragment"/>
 </navigation>

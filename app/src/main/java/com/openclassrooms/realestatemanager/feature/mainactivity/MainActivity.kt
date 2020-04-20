@@ -1,7 +1,8 @@
 package com.openclassrooms.realestatemanager.feature.mainactivity
 
 import android.os.Bundle
-import android.util.Log
+import android.view.Gravity
+import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
 import androidx.navigation.NavController
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
             R.id.editRealtyFragment -> renderEditMenu()
             R.id.mapFragment -> renderMapMenu()
             R.id.searchFragment -> renderSearchMenu()
+            R.id.addAgentFragment -> renderAddAgentMenu()
         }
     }
 
@@ -41,9 +43,9 @@ class MainActivity : AppCompatActivity() {
             navController.navigateUp()
         }
 
+        //Checks connectivity and launches geolocation updating if network is present
         ConnectionLiveData(applicationContext).observe(this) { isConnected ->
             if (isConnected) {
-                Log.d(javaClass.canonicalName, "Updating locations")
                 mainViewModel.updateGeolocations()
             }
         }
@@ -103,13 +105,19 @@ class MainActivity : AppCompatActivity() {
         backButton.visible = true
     }
 
+    private fun renderAddAgentMenu() {
+        fab.visible = false
+        toolBar.menu.findItem(R.id.map).isVisible = false
+        toolBar.menu.findItem(R.id.newRealty).isVisible = false
+        toolBar.menu.findItem(R.id.editRealty).isVisible = false
+        backButton.visible = true
+    }
+
     private fun setupToolbar() {
         toolBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.newRealty -> {
-                    mainViewModel.clearCurrentRealty()
-                    val action = AllRealtyFragmentDirections.actionAllRealtyFragmentToEditRealtyFragment()
-                    navController.navigate(action)
+                    showPopupAdd()
                     true
                 }
                 R.id.map -> {
@@ -120,5 +128,28 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    private fun showPopupAdd() {
+        val popup = PopupMenu(this, toolBar, Gravity.END)
+        popup.inflate(R.menu.add_menu)
+        popup.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.addAgent -> {
+                    val action = PhoneNavGraphDirections.actionGlobalAddAgentFragment()
+                    navController.navigate(action)
+                    true
+                }
+                R.id.addRealty -> {
+                    mainViewModel.clearCurrentRealty()
+                    val action = AllRealtyFragmentDirections.actionAllRealtyFragmentToEditRealtyFragment()
+                    navController.navigate(action)
+                    true
+                }
+                else -> false
+
+            }
+        }
+        popup.show()
     }
 }

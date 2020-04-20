@@ -23,6 +23,18 @@
                       <LayoutPositions />
                     </value>
                   </entry>
+                  <entry key="addAgentFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1002" />
+                            <option name="y" value="710" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="allRealtyFragment">
                     <value>
                       <LayoutPositions>

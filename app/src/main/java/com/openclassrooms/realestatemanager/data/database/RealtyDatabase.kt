@@ -12,6 +12,7 @@ import com.openclassrooms.realestatemanager.data.model.Realty
 @TypeConverters(Converters::class)
 abstract class RealtyDatabase : RoomDatabase() {
     abstract fun realtyDao(): RealtyDao
+    abstract fun agentDao(): AgentDao
 
     companion object {
         @Volatile

@@ -80,3 +80,8 @@ fun String?.convertToDoubleWithBlankEquals(error: String, default: Double?): Val
         } ?: return ValidationResult.Failure(error)
     }
 }
+
+fun validated(vararg layoutViews: TextInputLayout): Boolean =
+    layoutViews.fold(true) { acc, textInputLayout ->
+        acc.and(textInputLayout.error == null)
+    }
