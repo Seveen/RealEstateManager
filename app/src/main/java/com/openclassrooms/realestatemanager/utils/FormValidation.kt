@@ -30,6 +30,13 @@ fun <T> TextInputLayout.validateAndUpdate(validationFn: String?.() -> Validation
     }
 }
 
+fun String?.identity(): ValidationResult<String?> {
+    if (this == "") {
+        return ValidationResult.Success(null)
+    }
+    return ValidationResult.Success(this)
+}
+
 fun String?.isNullOrBlank(error: String): ValidationResult<String> {
     return if (isNullOrBlank()) {
         ValidationResult.Failure(error)
@@ -48,4 +55,28 @@ fun String?.convertToDouble(error: String): ValidationResult<Double> {
     result?.let {
         return ValidationResult.Success(it)
     } ?: return ValidationResult.Failure(error)
+}
+
+fun String?.convertToIntWithBlankEquals(error: String, default: Int?): ValidationResult<Int?> {
+    val string = toString().trim()
+    if (string == "") {
+        return ValidationResult.Success(default)
+    } else {
+        val result = toString().trim().toIntOrNull()
+        result?.let {
+            return ValidationResult.Success(it)
+        } ?: return ValidationResult.Failure(error)
+    }
+}
+
+fun String?.convertToDoubleWithBlankEquals(error: String, default: Double?): ValidationResult<Double?> {
+    val string = toString().trim()
+    if (string == "") {
+        return ValidationResult.Success(default)
+    } else {
+        val result = toString().trim().toDoubleOrNull()
+        result?.let {
+            return ValidationResult.Success(it)
+        } ?: return ValidationResult.Failure(error)
+    }
 }

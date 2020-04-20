@@ -24,7 +24,6 @@ import com.openclassrooms.realestatemanager.utils.visible
 import kotlinx.android.synthetic.main.fragment_map.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-//TODO: Own location service to automatically zoom in?
 class MapFragment : Fragment(), OnMapReadyCallback {
 
     private val PERMISSIONS_ACCESS_CODE = 126;

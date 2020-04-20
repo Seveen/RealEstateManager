@@ -2,9 +2,15 @@ package com.openclassrooms.realestatemanager.data.model
 
 //TODO : Add more requests
 data class RealtyQuery(
-    val types: List<String>,
+    val types: Set<String>,
     val lowestPrice: Double?,
     val highestPrice: Double?,
+    val minimumSurface: Double?,
+    val maximumSurface: Double?,
+    val minimumNbRooms: Int?,
+    val minimumNbBathrooms: Int?,
+    val minimumNbBedrooms: Int?,
+    val district: String?,
     val isCloseToSubway: Boolean,
     val isCloseToShops: Boolean,
     val isCloseToPark: Boolean,
@@ -31,6 +37,96 @@ data class RealtyQuery(
             }
             queryString += " priceInDollars <= ?"
             bindParameters.add(it)
+        }
+
+        minimumSurface?.let {
+            queryString += if (containsCondition) {
+                " AND"
+            } else {
+                containsCondition = true
+                " WHERE"
+            }
+            queryString += " surface >= ?"
+            bindParameters.add(it)
+        }
+
+        maximumSurface?.let {
+            queryString += if (containsCondition) {
+                " AND"
+            } else {
+                containsCondition = true
+                " WHERE"
+            }
+            queryString += " surface <= ?"
+            bindParameters.add(it)
+        }
+
+        minimumNbRooms?.let {
+            queryString += if (containsCondition) {
+                " AND"
+            } else {
+                containsCondition = true
+                " WHERE"
+            }
+            queryString += " numberOfRooms >= ?"
+            bindParameters.add(it)
+        }
+
+        minimumNbBathrooms?.let {
+            queryString += if (containsCondition) {
+                " AND"
+            } else {
+                containsCondition = true
+                " WHERE"
+            }
+            queryString += " numberOfBathrooms >= ?"
+            bindParameters.add(it)
+        }
+
+        minimumNbBedrooms?.let {
+            queryString += if (containsCondition) {
+                " AND"
+            } else {
+                containsCondition = true
+                " WHERE"
+            }
+            queryString += " numberOfBedrooms >= ?"
+            bindParameters.add(it)
+        }
+
+        district?.let {
+            queryString += if (containsCondition) {
+                " AND"
+            } else {
+                containsCondition = true
+                " WHERE"
+            }
+            queryString += " district = ?"
+            bindParameters.add(it)
+        }
+
+        if (types.isEmpty().not()) {
+            queryString += if (containsCondition) {
+                " AND"
+            } else {
+                containsCondition = true
+                " WHERE"
+            }
+
+            queryString += " ("
+
+            var chainingTypes = false
+            types.forEach {
+                if (chainingTypes) {
+                    queryString += " OR"
+                } else {
+                    chainingTypes = true
+                }
+                queryString += " type = ?"
+                bindParameters.add(it)
+            }
+
+            queryString += " )"
         }
 
         if (isCloseToSubway) {
@@ -80,9 +176,15 @@ data class RealtyQuery(
 
     companion object {
         fun default() = RealtyQuery(
-                types = listOf(),
-                lowestPrice = 0.0,
-                highestPrice = Double.MAX_VALUE,
+                types = setOf(),
+                district = null,
+                lowestPrice = null,
+                highestPrice = null,
+                minimumSurface = null,
+                maximumSurface = null,
+                minimumNbRooms = null,
+                minimumNbBedrooms = null,
+                minimumNbBathrooms = null,
                 isCloseToSubway = false,
                 isCloseToShops = false,
                 isCloseToPark = false,
