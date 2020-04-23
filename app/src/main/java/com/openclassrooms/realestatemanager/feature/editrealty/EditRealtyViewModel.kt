@@ -1,8 +1,11 @@
 package com.openclassrooms.realestatemanager.feature.editrealty
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.openclassrooms.realestatemanager.data.model.EstateAgent
 import com.openclassrooms.realestatemanager.data.model.Photo
+import com.openclassrooms.realestatemanager.data.repository.AgentRepository
 import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -10,10 +13,13 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class EditRealtyViewModel(
-        private val realtyRepository: RealtyRepository
+        private val realtyRepository: RealtyRepository,
+        private val agentRepository: AgentRepository
 ) : ViewModel() {
 
     val currentRealty = realtyRepository.currentRealty
+
+    val allAgents = agentRepository.getAllAgents().asLiveData()
 
     fun editType(type: String) =
             realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(type = type))
@@ -58,6 +64,9 @@ class EditRealtyViewModel(
             realtyRepository.currentRealty.value?.let {
                 realtyRepository.setCurrentRealty(it.copy(photos = it.photos.plus(photo)))
             }
+
+    fun editAgent(agent: EstateAgent) =
+            realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(assignedEstateAgentId = agent.id))
 
     fun editSaleDate(date: Date?) =
             realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(saleDate = date))

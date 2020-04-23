@@ -85,6 +85,9 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         realty.location?.let {
             map?.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 16f))
         }
+        detailsViewModel.getAgentById(realty.assignedEstateAgentId).observe(viewLifecycleOwner) {
+            binding.agent = it
+        }
     }
 
     private fun overrideToolbar() {

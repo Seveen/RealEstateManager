@@ -21,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.data.model.EstateAgent
 import com.openclassrooms.realestatemanager.data.model.Photo
 import com.openclassrooms.realestatemanager.data.model.Realty
 import com.openclassrooms.realestatemanager.utils.*
@@ -60,6 +61,14 @@ class EditRealtyFragment : Fragment() {
                                 view.typeSpinner.adapter = adapter
                             }
 
+                    ArrayAdapter<EstateAgent>(view.context, android.R.layout.simple_spinner_item).also { adapter ->
+                        editRealtyViewModel.allAgents.observe(viewLifecycleOwner) {
+                            adapter.addAll(it)
+                        }
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        view.agentSpinner.adapter = adapter
+                    }
+
                     view.takePhotoButton.setOnClickListener { dispatchTakePictureIntent() }
 
                     with(view.galleryRecyclerView) {
@@ -87,7 +96,8 @@ class EditRealtyFragment : Fragment() {
     }
 
     private fun wireUi() {
-        typeSpinner.onSelected { editRealtyViewModel.editType(it?: "") }
+        typeSpinner.onSelected { editRealtyViewModel.editType(it ?: "") }
+        agentSpinner.onAgentSelected { editRealtyViewModel.editAgent(it ?: EstateAgent.default()) }
 
         districtLayoutView.validateAndUpdate(
                 validationFn = { isNullOrBlank("Should not be blank") },

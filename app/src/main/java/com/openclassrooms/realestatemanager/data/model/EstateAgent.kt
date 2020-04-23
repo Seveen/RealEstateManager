@@ -9,6 +9,10 @@ data class EstateAgent(
         val name: String,
         val surname: String
 ) {
+    fun displayName() = "$name $surname"
+
+    override fun toString() = displayName()
+
     companion object {
         fun default() = EstateAgent(0, "", "")
     }

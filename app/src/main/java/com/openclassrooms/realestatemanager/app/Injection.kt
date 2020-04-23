@@ -42,11 +42,11 @@ val allRealtyModule = module {
 }
 
 val detailsModule = module {
-    viewModel { DetailsViewModel(get()) }
+    viewModel { DetailsViewModel(get(), get()) }
 }
 
 val editRealtyModule = module {
-    viewModel { EditRealtyViewModel(get()) }
+    viewModel { EditRealtyViewModel(get(), get()) }
 }
 
 val mapModule = module {

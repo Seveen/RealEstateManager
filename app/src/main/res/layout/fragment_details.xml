@@ -8,6 +8,10 @@
         <variable
             name="realty"
             type="com.openclassrooms.realestatemanager.data.model.Realty" />
+
+        <variable
+            name="agent"
+            type="com.openclassrooms.realestatemanager.data.model.EstateAgent" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -347,10 +351,32 @@
                 android:layout_marginBottom="16dp"
                 android:text="@{realty.address}"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/staticMap"
                 app:layout_constraintStart_toEndOf="@+id/locationIcon"
                 app:layout_constraintTop_toBottomOf="@+id/locationLabel" />
+
+            <TextView
+                android:id="@+id/agentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Agent in charge"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/locationTextView" />
+
+            <TextView
+                android:id="@+id/agentTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="@{agent.displayName}"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/agentLabel" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
