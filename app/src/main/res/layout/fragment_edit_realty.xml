@@ -289,6 +289,44 @@
                 app:layout_constraintStart_toEndOf="@id/closeToParkLabel"
                 app:layout_constraintTop_toTopOf="@id/closeToParkLabel" />
 
+            <TextView
+                android:id="@+id/entryDateLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/parkSwitch"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Entry market date"/>
+
+            <Button
+                android:id="@+id/entryDateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/entryDateLabel" />
+
+            <Switch
+                android:id="@+id/soldSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/entryDateButton"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Sold" />
+
+            <Button
+                android:id="@+id/soldDateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/soldSwitch" />
+
             <Button
                 android:id="@+id/saveButton"
                 android:layout_width="wrap_content"
@@ -296,7 +334,7 @@
                 android:text="Save"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/closeToParkLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/soldDateButton" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -305,7 +343,9 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/closeToParkLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/soldDateButton" />
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

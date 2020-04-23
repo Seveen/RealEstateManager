@@ -5,6 +5,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.BindingConversion
+import java.text.SimpleDateFormat
+import java.util.*
 
 @BindingConversion
 fun convertDoubleToString(value: Double) = value.toString()
@@ -22,4 +24,11 @@ fun setPriceText(view: TextView, price: Double) {
 @BindingAdapter("srcUri")
 fun setImageUri(view: ImageView, uri: String) {
     view.setImageURI(Uri.parse(uri))
+}
+
+@BindingAdapter("dateText")
+fun setDateText(view: TextView, date: Date?) {
+    view.text = date?.let {
+        SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(date)
+    } ?: ""
 }

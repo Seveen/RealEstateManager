@@ -57,6 +57,7 @@ class AddAgentFragment : Fragment() {
             saveButton.visible = false
             progressBar.visible = true
             addAgentViewModel.saveAndThen {
+                Toast.makeText(context, "Agent saved.", Toast.LENGTH_SHORT).show()
                 findNavController().navigateUp()
             }
         } else {

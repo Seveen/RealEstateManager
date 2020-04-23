@@ -7,6 +7,7 @@ import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class EditRealtyViewModel(
         private val realtyRepository: RealtyRepository
@@ -50,10 +51,19 @@ class EditRealtyViewModel(
     fun editPoiPark(newValue: Boolean) =
             realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(isCloseToPark = newValue))
 
+    fun editSold(newValue: Boolean) =
+            realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(isSold = newValue))
+
     fun addPhoto(photo: Photo) =
             realtyRepository.currentRealty.value?.let {
                 realtyRepository.setCurrentRealty(it.copy(photos = it.photos.plus(photo)))
             }
+
+    fun editSaleDate(date: Date?) =
+            realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(saleDate = date))
+
+    fun editMarketEntryDate(date: Date) =
+            realtyRepository.setCurrentRealty(realtyRepository.currentRealty.value?.copy(marketEntryDate = date))
 
     fun removePhoto(photo: Photo) =
             realtyRepository.currentRealty.value?.let {

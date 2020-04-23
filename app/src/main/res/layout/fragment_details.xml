@@ -30,26 +30,54 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/mediaLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Media"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/photoGalleryRecyclerView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mediaLabel">
+                app:layout_constraintTop_toTopOf="parent" >
 
             </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/entryDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Market entry date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/photoGalleryRecyclerView" />
+
+            <TextView
+                android:id="@+id/entryDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                app:dateText="@{realty.marketEntryDate}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/entryDateLabel" />
+
+            <TextView
+                android:id="@+id/saleDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Sale date"
+                app:layout_constraintStart_toStartOf="@+id/staticMap"
+                app:layout_constraintTop_toBottomOf="@+id/photoGalleryRecyclerView" />
+
+            <TextView
+                android:id="@+id/saleDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                app:dateText="@{realty.saleDate}"
+                app:layout_constraintStart_toStartOf="@+id/saleDateLabel"
+                app:layout_constraintTop_toBottomOf="@+id/entryDateLabel" />
 
             <TextView
                 android:id="@+id/typeLabel"
@@ -59,7 +87,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Type"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/photoGalleryRecyclerView" />
+                app:layout_constraintTop_toBottomOf="@+id/entryDateTextView" />
 
             <TextView
                 android:id="@+id/typeTextView"
@@ -78,7 +106,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Price"
                 app:layout_constraintStart_toStartOf="@+id/staticMap"
-                app:layout_constraintTop_toBottomOf="@+id/photoGalleryRecyclerView" />
+                app:layout_constraintTop_toBottomOf="@+id/entryDateTextView" />
 
             <TextView
                 android:id="@+id/priceTextView"
@@ -188,7 +216,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="sq m"
+                android:text="m²"
                 app:layout_constraintStart_toEndOf="@+id/surfaceTextView"
                 app:layout_constraintTop_toBottomOf="@+id/surfaceLabel" />
 
@@ -312,14 +340,15 @@
 
             <TextView
                 android:id="@+id/locationTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="@{realty.address}"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/staticMap"
                 app:layout_constraintStart_toEndOf="@+id/locationIcon"
                 app:layout_constraintTop_toBottomOf="@+id/locationLabel" />
 

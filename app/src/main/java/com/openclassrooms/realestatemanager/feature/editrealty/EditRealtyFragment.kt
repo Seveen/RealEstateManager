@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.feature.editrealty
 
 
 import android.app.Activity.RESULT_OK
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
@@ -32,7 +34,6 @@ import java.util.*
 
 //TODO: Add way to remove photo
 //TODO: Add way to add/change name of photo
-//TODO: Add confirmation: message if everything went fine at save
 //TODO: Handle dollar/euro switch
 //TODO: Add creation date picker and sold/sale date toggle+date picker
 
@@ -132,6 +133,24 @@ class EditRealtyFragment : Fragment() {
         parkSwitch.setOnCheckedChangeListener {_, value -> editRealtyViewModel.editPoiPark(value)}
         shopsSwitch.setOnCheckedChangeListener { _, value -> editRealtyViewModel.editPoiShops(value) }
 
+        entryDateButton.setOnClickListener {
+            showMarketEntryDatePicker()
+        }
+
+        soldSwitch.setOnCheckedChangeListener { _, value ->
+            editRealtyViewModel.editSold(value)
+            if (value) editRealtyViewModel.editSaleDate(Date())
+            else editRealtyViewModel.editSaleDate(null)
+            soldDateButton.gone = value.not()
+            editRealtyViewModel.currentRealty.value?.saleDate?.let {
+                soldDateButton.text = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(it)
+            }
+        }
+
+        soldDateButton.setOnClickListener {
+            showSaleDatePicker()
+        }
+
         saveButton.setOnClickListener { saveRealty() }
     }
 
@@ -148,22 +167,74 @@ class EditRealtyFragment : Fragment() {
         subwaySwitch.isChecked = realty.isCloseToSubway
         parkSwitch.isChecked = realty.isCloseToPark
         shopsSwitch.isChecked = realty.isCloseToShops
+        soldSwitch.isChecked = realty.isSold
+        soldDateButton.gone = realty.isSold.not()
+        realty.saleDate?.let {
+            soldDateButton.text = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(it)
+        }
+        entryDateButton.text = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(realty.marketEntryDate)
     }
 
-    //TODO: Feedback on saved/not saved
     private fun saveRealty() {
-        if (validateForm()) editRealtyViewModel.saveAndThen(
-            isNetworkAvailable = Utils.isInternetAvailable(requireContext()),
-            doNext = {
-                Log.d(javaClass.canonicalName, "Saved")
-                findNavController().navigateUp()
-            },
-            doOnError = {Log.d(javaClass.canonicalName, "Not saved")}
-        )
+        if (validateForm()) {
+            editRealtyViewModel.saveAndThen(
+                    isNetworkAvailable = Utils.isInternetAvailable(requireContext()),
+                    doNext = {
+                        Toast.makeText(context, "Realty saved.", Toast.LENGTH_LONG).show()
+                        findNavController().navigateUp()
+                    },
+                    doOnError = { Toast.makeText(context, "Can't save with errors.", Toast.LENGTH_LONG).show() }
+            )
+        } else {
+            Toast.makeText(context, "You can't save with errors.", Toast.LENGTH_LONG).show()
+        }
     }
 
-    //TODO: Validate
-    private fun validateForm() = true
+    private fun validateForm() = validated(
+            districtLayoutView,
+            priceLayoutView,
+            descriptionLayoutView,
+            surfaceLayoutView,
+            numberRoomsLayoutView,
+            numberBathroomsLayoutView,
+            numberBedroomsLayoutView,
+            addressLayoutView
+    )
+
+    //TODO: Fix date being retarded
+    private fun showMarketEntryDatePicker() {
+        val currentDate = editRealtyViewModel.currentRealty.value?.marketEntryDate ?: Date()
+        val calendar = Calendar.getInstance().apply { time = currentDate }
+
+        DatePickerDialog(requireContext(),
+                DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                    val resultCalendar = Calendar.getInstance()
+                            .apply {
+                                set(year, month, day)
+                            }
+                    editRealtyViewModel.editMarketEntryDate(resultCalendar.time)
+                    entryDateButton.text = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(resultCalendar.time)
+                },
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+                .show()
+    }
+
+    private fun showSaleDatePicker() {
+        val currentDate = editRealtyViewModel.currentRealty.value?.saleDate ?: Date()
+        val calendar = Calendar.getInstance().apply { time = currentDate }
+
+        DatePickerDialog(requireContext(),
+                DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                    val resultCalendar = Calendar.getInstance()
+                            .apply {
+                                set(year, month, day)
+                            }
+                    editRealtyViewModel.editSaleDate(resultCalendar.time)
+                    soldDateButton.text = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(resultCalendar.time)
+                },
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+                .show()
+    }
 
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
