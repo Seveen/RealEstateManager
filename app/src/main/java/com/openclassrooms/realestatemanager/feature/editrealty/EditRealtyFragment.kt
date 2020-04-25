@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,20 +32,22 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-//TODO: Add way to remove photo
-//TODO: Add way to add/change name of photo
-//TODO: Handle dollar/euro switch
-//TODO: Add creation date picker and sold/sale date toggle+date picker
-
 class EditRealtyFragment : Fragment() {
 
     private val REQUEST_IMAGE_CAPTURE = 1
+    private val REQUEST_IMAGE_INSERT = 2
 
     private val editRealtyViewModel: EditRealtyViewModel by viewModel()
 
-    private val adapter = EditRealtyPhotoAdapter(emptyList()) {
-        Log.d("TAG", it.uri)
-    }
+    private val adapter = EditRealtyPhotoAdapter(emptyList(),
+     onDeletePhoto = {
+         addPhotoToDeletion(it)
+        editRealtyViewModel.removePhoto(it)
+    }, onRenamePhoto = {
+        renamePhoto(it)
+    })
+
+    private val deletedPhotos: MutableList<Photo> = mutableListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -70,6 +71,7 @@ class EditRealtyFragment : Fragment() {
                     }
 
                     view.takePhotoButton.setOnClickListener { dispatchTakePictureIntent() }
+                    view.insertPhotoButton.setOnClickListener { dispatchInsertPictureIntent() }
 
                     with(view.galleryRecyclerView) {
                         layoutManager = LinearLayoutManager(this@EditRealtyFragment.context, HORIZONTAL, false)
@@ -191,6 +193,7 @@ class EditRealtyFragment : Fragment() {
                     isNetworkAvailable = Utils.isInternetAvailable(requireContext()),
                     doNext = {
                         Toast.makeText(context, "Realty saved.", Toast.LENGTH_LONG).show()
+                        deletedPhotos.forEach { deletePhoto(it) }
                         findNavController().navigateUp()
                     },
                     doOnError = { Toast.makeText(context, "Can't save with errors.", Toast.LENGTH_LONG).show() }
@@ -211,7 +214,6 @@ class EditRealtyFragment : Fragment() {
             addressLayoutView
     )
 
-    //TODO: Fix date being retarded
     private fun showMarketEntryDatePicker() {
         val currentDate = editRealtyViewModel.currentRealty.value?.marketEntryDate ?: Date()
         val calendar = Calendar.getInstance().apply { time = currentDate }
@@ -269,6 +271,13 @@ class EditRealtyFragment : Fragment() {
         }
     }
 
+    private fun dispatchInsertPictureIntent() {
+        startActivityForResult(Intent(Intent.ACTION_PICK).apply {
+            type = "image/*"
+            putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/jpeg", "image/png"))
+        }, REQUEST_IMAGE_INSERT)
+    }
+
     lateinit var currentPhotoPath: String
 
     @Throws(IOException::class)
@@ -288,8 +297,28 @@ class EditRealtyFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-           editRealtyViewModel.addPhoto(Photo(currentPhotoPath, "photoName"))
+            EditPhotoNameDialogFragment {
+                editRealtyViewModel.addPhoto(Photo(currentPhotoPath, it))
+            }.apply { show(this@EditRealtyFragment.requireActivity().supportFragmentManager, "editPhotoDialog") }
+        } else if (requestCode == REQUEST_IMAGE_INSERT && resultCode == RESULT_OK) {
+            EditPhotoNameDialogFragment {
+                editRealtyViewModel.addPhoto(Photo(data?.data.toString(), it))
+            }.apply { show(this@EditRealtyFragment.requireActivity().supportFragmentManager, "editPhotoDialog") }
         }
+    }
+
+    private fun deletePhoto(photo: Photo) {
+        File(photo.uri).delete()
+    }
+
+    private fun addPhotoToDeletion(photo: Photo) {
+        deletedPhotos.add(photo)
+    }
+
+    private fun renamePhoto(photo: Photo) {
+        EditPhotoNameDialogFragment(photo.name) {
+            editRealtyViewModel.renamePhoto(photo, it)
+        }.apply { show(this@EditRealtyFragment.requireActivity().supportFragmentManager, "editPhotoDialog") }
     }
 
 }

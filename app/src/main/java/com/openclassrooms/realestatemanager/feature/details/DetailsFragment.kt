@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.data.model.Realty
 import com.openclassrooms.realestatemanager.databinding.FragmentDetailsBinding
+import com.openclassrooms.realestatemanager.utils.Utils
 import com.openclassrooms.realestatemanager.utils.gone
 import com.openclassrooms.realestatemanager.utils.visible
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -52,15 +53,17 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         overrideToolbar()
         progressBar.visible = true
 
-        var mapFragment = childFragmentManager.findFragmentById(R.id.staticMap) as SupportMapFragment?
-        if (mapFragment == null) {
-            val options = GoogleMapOptions().liteMode(true)
-            mapFragment = SupportMapFragment.newInstance(options)
-            mapFragment.getMapAsync(this)
+        if (Utils.isInternetAvailable(requireContext())) {
+            var mapFragment = childFragmentManager.findFragmentById(R.id.staticMap) as SupportMapFragment?
+            if (mapFragment == null) {
+                val options = GoogleMapOptions().liteMode(true)
+                mapFragment = SupportMapFragment.newInstance(options)
+                mapFragment.getMapAsync(this)
+            }
+            childFragmentManager.beginTransaction()
+                    .replace(R.id.staticMap, mapFragment as Fragment)
+                    .commit()
         }
-        childFragmentManager.beginTransaction()
-                .replace(R.id.staticMap, mapFragment as Fragment)
-                .commit()
 
         detailsViewModel.currentRealty.observe(viewLifecycleOwner) { realty ->
             realty?.let {

@@ -34,7 +34,7 @@ class RoomRealtyRepository(
     }
 
     override suspend fun saveRealty(realty: Realty): Boolean {
-        Log.d(javaClass.canonicalName, "Saving")
+        Log.i(javaClass.canonicalName, "Saving")
 
         if (realty.photos.isEmpty()) return false
 
@@ -48,7 +48,7 @@ class RoomRealtyRepository(
     }
 
     override suspend fun saveRealtyOffline(realty: Realty): Boolean {
-        Log.d(javaClass.canonicalName, "Saving offline")
+        Log.i(javaClass.canonicalName, "Saving offline")
 
         if (realty.photos.isEmpty()) return false
 

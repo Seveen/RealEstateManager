@@ -79,6 +79,11 @@ class EditRealtyViewModel(
                 realtyRepository.setCurrentRealty(it.copy(photos = it.photos.minus(photo)))
             }
 
+    fun renamePhoto(photo: Photo, newName: String) =
+            realtyRepository.currentRealty.value?.let {
+                realtyRepository.setCurrentRealty(it.copy(photos = it.photos.minus(photo).plus(Photo(photo.uri, newName))))
+            }
+
     fun saveAndThen(isNetworkAvailable: Boolean, doNext: () -> Unit, doOnError: () -> Unit) = viewModelScope.launch {
         var saved = false
         withContext(Dispatchers.IO) {

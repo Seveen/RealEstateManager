@@ -29,10 +29,19 @@
                 android:id="@+id/takePhotoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/insertPhotoButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/galleryRecyclerView"
                 app:srcCompat="@drawable/ic_photo_camera_grey" />
+
+            <ImageButton
+                android:id="@+id/insertPhotoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/takePhotoButton"
+                app:layout_constraintTop_toBottomOf="@+id/galleryRecyclerView"
+                app:srcCompat="@drawable/ic_insert_photo_grey" />
 
             <Spinner
                 android:id="@+id/typeSpinner"

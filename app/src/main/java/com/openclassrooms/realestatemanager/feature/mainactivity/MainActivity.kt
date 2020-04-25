@@ -1,6 +1,7 @@
 package com.openclassrooms.realestatemanager.feature.mainactivity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         //Checks connectivity and launches geolocation updating if network is present
         ConnectionLiveData(applicationContext).observe(this) { isConnected ->
             if (isConnected) {
+                Log.d("MAIN", "Updating geolocations")
                 mainViewModel.updateGeolocations()
             }
         }
