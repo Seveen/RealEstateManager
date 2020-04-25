@@ -21,7 +21,8 @@ class RealEstateManagerApplication : Application() {
                     editRealtyModule,
                     mapModule,
                     searchModule,
-                    addAgentModule
+                    addAgentModule,
+                    loanCalculatorModule
             )
         }
     }

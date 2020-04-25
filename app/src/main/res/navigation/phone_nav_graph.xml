@@ -66,4 +66,9 @@
         android:name="com.openclassrooms.realestatemanager.feature.addagent.AddAgentFragment"
         android:label="fragment_add_agent"
         tools:layout="@layout/fragment_add_agent" /><action android:id="@+id/action_global_addAgentFragment" app:destination="@id/addAgentFragment"/>
+    <fragment
+        android:id="@+id/loanCalculatorFragment"
+        android:name="com.openclassrooms.realestatemanager.feature.loancalculator.LoanCalculatorFragment"
+        android:label="fragment_loan_calculator"
+        tools:layout="@layout/fragment_loan_calculator" /><action android:id="@+id/action_global_loanCalculatorFragment" app:destination="@id/loanCalculatorFragment"/>
 </navigation>

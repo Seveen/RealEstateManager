@@ -12,6 +12,7 @@ import com.openclassrooms.realestatemanager.feature.addagent.AddAgentViewModel
 import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyViewModel
 import com.openclassrooms.realestatemanager.feature.details.DetailsViewModel
 import com.openclassrooms.realestatemanager.feature.editrealty.EditRealtyViewModel
+import com.openclassrooms.realestatemanager.feature.loancalculator.LoanCalculatorViewModel
 import com.openclassrooms.realestatemanager.feature.mainactivity.MainActivityViewModel
 import com.openclassrooms.realestatemanager.feature.map.MapViewModel
 import com.openclassrooms.realestatemanager.feature.search.SearchViewModel
@@ -59,4 +60,8 @@ val searchModule = module {
 
 val addAgentModule = module {
     viewModel { AddAgentViewModel(get()) }
+}
+
+val loanCalculatorModule = module {
+    viewModel { LoanCalculatorViewModel() }
 }

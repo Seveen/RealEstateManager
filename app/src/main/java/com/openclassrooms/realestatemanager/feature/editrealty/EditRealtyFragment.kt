@@ -70,9 +70,6 @@ class EditRealtyFragment : Fragment() {
                         view.agentSpinner.adapter = adapter
                     }
 
-                    view.takePhotoButton.setOnClickListener { dispatchTakePictureIntent() }
-                    view.insertPhotoButton.setOnClickListener { dispatchInsertPictureIntent() }
-
                     with(view.galleryRecyclerView) {
                         layoutManager = LinearLayoutManager(this@EditRealtyFragment.context, HORIZONTAL, false)
                         adapter = this@EditRealtyFragment.adapter
@@ -98,6 +95,7 @@ class EditRealtyFragment : Fragment() {
     }
 
     private fun wireUi() {
+
         typeSpinner.onSelected { editRealtyViewModel.editType(it ?: "") }
         agentSpinner.onAgentSelected { editRealtyViewModel.editAgent(it ?: EstateAgent.default()) }
 
@@ -159,9 +157,10 @@ class EditRealtyFragment : Fragment() {
             }
         }
 
-        soldDateButton.setOnClickListener {
-            showSaleDatePicker()
-        }
+        soldDateButton.setOnClickListener { showSaleDatePicker() }
+
+        takePhotoButton.setOnClickListener { dispatchTakePictureIntent() }
+        insertPhotoButton.setOnClickListener { dispatchInsertPictureIntent() }
 
         saveButton.setOnClickListener { saveRealty() }
     }

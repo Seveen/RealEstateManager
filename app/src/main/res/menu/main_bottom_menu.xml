@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/loanCalculator"
+        android:icon="@drawable/ic_local_atm_white"
+        android:title="Loan Calculator"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/newRealty"
         android:icon="@drawable/ic_add_white"
         android:title="New Realty"

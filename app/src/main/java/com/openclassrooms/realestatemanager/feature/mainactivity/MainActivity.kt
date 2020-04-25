@@ -11,6 +11,7 @@ import androidx.navigation.Navigation.findNavController
 import com.openclassrooms.realestatemanager.PhoneNavGraphDirections
 import com.openclassrooms.realestatemanager.R
 import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyFragmentDirections
+import com.openclassrooms.realestatemanager.feature.details.DetailsFragmentDirections
 import com.openclassrooms.realestatemanager.utils.ConnectionLiveData
 import com.openclassrooms.realestatemanager.utils.visible
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
             R.id.mapFragment -> renderMapMenu()
             R.id.searchFragment -> renderSearchMenu()
             R.id.addAgentFragment -> renderAddAgentMenu()
+            R.id.loanCalculatorFragment -> renderCalculatorMenu()
         }
     }
 
@@ -70,6 +72,7 @@ class MainActivity : AppCompatActivity() {
             val action = PhoneNavGraphDirections.actionGlobalSearchFragment()
             navController.navigate(action)
         }
+        toolBar.menu.findItem(R.id.loanCalculator).isVisible = true
         toolBar.menu.findItem(R.id.map).isVisible = true
         toolBar.menu.findItem(R.id.newRealty).isVisible = true
         toolBar.menu.findItem(R.id.editRealty).isVisible = false
@@ -78,6 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun renderDetailsMenu() {
         fab.visible = false
+        toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
         toolBar.menu.findItem(R.id.map).isVisible = false
         toolBar.menu.findItem(R.id.newRealty).isVisible = false
         toolBar.menu.findItem(R.id.editRealty).isVisible = true
@@ -86,6 +90,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun renderEditMenu() {
         fab.visible = false
+        toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
         toolBar.menu.findItem(R.id.map).isVisible = false
         toolBar.menu.findItem(R.id.newRealty).isVisible = false
         toolBar.menu.findItem(R.id.editRealty).isVisible = false
@@ -94,6 +99,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun renderMapMenu() {
         fab.visible = false
+        toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
         toolBar.menu.findItem(R.id.map).isVisible = false
         toolBar.menu.findItem(R.id.newRealty).isVisible = false
         backButton.visible = true
@@ -101,6 +107,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun renderSearchMenu() {
         fab.visible = false
+        toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
         toolBar.menu.findItem(R.id.map).isVisible = false
         toolBar.menu.findItem(R.id.newRealty).isVisible = false
         toolBar.menu.findItem(R.id.editRealty).isVisible = false
@@ -109,6 +116,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun renderAddAgentMenu() {
         fab.visible = false
+        toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
+        toolBar.menu.findItem(R.id.map).isVisible = false
+        toolBar.menu.findItem(R.id.newRealty).isVisible = false
+        toolBar.menu.findItem(R.id.editRealty).isVisible = false
+        backButton.visible = true
+    }
+
+    private fun renderCalculatorMenu() {
+        fab.visible = false
+        toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
         toolBar.menu.findItem(R.id.map).isVisible = false
         toolBar.menu.findItem(R.id.newRealty).isVisible = false
         toolBar.menu.findItem(R.id.editRealty).isVisible = false
@@ -118,8 +135,18 @@ class MainActivity : AppCompatActivity() {
     private fun setupToolbar() {
         toolBar.setOnMenuItemClickListener {
             when (it.itemId) {
+                R.id.loanCalculator -> {
+                    val action = PhoneNavGraphDirections.actionGlobalLoanCalculatorFragment()
+                    navController.navigate(action)
+                    true
+                }
                 R.id.newRealty -> {
                     showPopupAdd()
+                    true
+                }
+                R.id.editRealty -> {
+                    val action = DetailsFragmentDirections.actionDetailsFragmentToEditRealtyFragment()
+                    navController.navigate(action)
                     true
                 }
                 R.id.map -> {

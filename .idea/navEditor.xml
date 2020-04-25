@@ -8,7 +8,17 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="action_global_addAgentFragment">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
                   <entry key="action_global_allRealtyFragment">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="action_global_loanCalculatorFragment">
                     <value>
                       <LayoutPositions />
                     </value>
@@ -89,6 +99,18 @@
                           <Point>
                             <option name="x" value="923" />
                             <option name="y" value="272" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="loanCalculatorFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1001" />
+                            <option name="y" value="1054" />
                           </Point>
                         </option>
                       </LayoutPositions>

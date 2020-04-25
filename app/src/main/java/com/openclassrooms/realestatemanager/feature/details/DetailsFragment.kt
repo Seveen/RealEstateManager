@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
 import com.google.android.gms.maps.*
@@ -23,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.android.synthetic.main.fragment_details.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-//TODO : Check connectivity before updating map
 class DetailsFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var binding: FragmentDetailsBinding
@@ -50,7 +47,6 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        overrideToolbar()
         progressBar.visible = true
 
         if (Utils.isInternetAvailable(requireContext())) {
@@ -90,17 +86,6 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
         }
         detailsViewModel.getAgentById(realty.assignedEstateAgentId).observe(viewLifecycleOwner) {
             binding.agent = it
-        }
-    }
-
-    private fun overrideToolbar() {
-        val toolbar = activity?.findViewById<Toolbar>(R.id.toolBar)
-        toolbar?.setOnMenuItemClickListener {
-            return@setOnMenuItemClickListener if (it.itemId == R.id.editRealty) {
-                val action = DetailsFragmentDirections.actionDetailsFragmentToEditRealtyFragment()
-                findNavController().navigate(action)
-                true
-            } else false
         }
     }
 
