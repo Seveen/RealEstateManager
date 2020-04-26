@@ -98,6 +98,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderMapMenu() {
+        toolBarTitle.text = "Map"
         fab.visible = false
         toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
         toolBar.menu.findItem(R.id.map).isVisible = false
@@ -106,6 +107,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderSearchMenu() {
+        toolBarTitle.text = "Search realty"
         fab.visible = false
         toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
         toolBar.menu.findItem(R.id.map).isVisible = false
@@ -115,6 +117,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderAddAgentMenu() {
+        toolBarTitle.text = "Add agent"
         fab.visible = false
         toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
         toolBar.menu.findItem(R.id.map).isVisible = false
@@ -124,6 +127,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderCalculatorMenu() {
+        toolBarTitle.text = "Loan calculator"
         fab.visible = false
         toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
         toolBar.menu.findItem(R.id.map).isVisible = false
@@ -133,6 +137,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupToolbar() {
+        toolBarTitle.text = "Real Estate Manager"
         toolBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.loanCalculator -> {

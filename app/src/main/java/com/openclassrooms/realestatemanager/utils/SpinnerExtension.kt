@@ -12,6 +12,14 @@ fun Spinner.setText(text: String) {
     setSelection(position ?: 0)
 }
 
+fun Spinner.setAgent(agent: EstateAgent?) {
+    agent?.let {
+        val adapter: ArrayAdapter<EstateAgent> = this.adapter as ArrayAdapter<EstateAgent>
+        val position: Int = adapter.getPosition(it)
+        setSelection(position)
+    }
+}
+
 fun Spinner.onSelected(listener: (String?) -> Unit) {
     onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {

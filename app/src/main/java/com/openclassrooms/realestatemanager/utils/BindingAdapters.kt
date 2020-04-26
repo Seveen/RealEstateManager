@@ -18,7 +18,12 @@ fun setTextFromInt(view: TextView, value: Int) {
 
 @BindingAdapter("priceText")
 fun setPriceText(view: TextView, price: Double) {
-    view.text = "$${price}"
+    view.text = "$${String.format("%,.0f", price)}"
+}
+
+@BindingAdapter("roundedText")
+fun setRoundedText(view: TextView, value: Double) {
+    view.text = "${String.format("%,.0f", value)}"
 }
 
 @BindingAdapter("srcUri")

@@ -45,60 +45,21 @@
             </androidx.recyclerview.widget.RecyclerView>
 
             <TextView
-                android:id="@+id/entryDateLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Market entry date"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/photoGalleryRecyclerView" />
-
-            <TextView
-                android:id="@+id/entryDateTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                app:dateText="@{realty.marketEntryDate}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/entryDateLabel" />
-
-            <TextView
-                android:id="@+id/saleDateLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Sale date"
-                app:layout_constraintStart_toStartOf="@+id/staticMap"
-                app:layout_constraintTop_toBottomOf="@+id/photoGalleryRecyclerView" />
-
-            <TextView
-                android:id="@+id/saleDateTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                app:dateText="@{realty.saleDate}"
-                app:layout_constraintStart_toStartOf="@+id/saleDateLabel"
-                app:layout_constraintTop_toBottomOf="@+id/entryDateLabel" />
-
-            <TextView
                 android:id="@+id/typeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Type"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/entryDateTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/photoGalleryRecyclerView" />
 
             <TextView
                 android:id="@+id/typeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
                 android:text="@{realty.type}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/typeLabel" />
@@ -107,20 +68,20 @@
                 android:id="@+id/priceLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:text="Price"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/staticMap"
-                app:layout_constraintTop_toBottomOf="@+id/entryDateTextView" />
+                app:layout_constraintTop_toTopOf="@+id/typeLabel" />
 
             <TextView
                 android:id="@+id/priceTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:priceText = "@{realty.priceInDollars}"
+                android:textColor="@color/colorAccent"
                 app:layout_constraintStart_toStartOf="@+id/priceLabel"
-                app:layout_constraintTop_toBottomOf="@+id/priceLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/priceLabel"
+                app:priceText="@{realty.priceInDollars}" />
 
             <TextView
                 android:id="@+id/descriptionLabel"
@@ -129,6 +90,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Description"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/priceTextView" />
 
@@ -138,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Close to:"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/staticMap"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
 
@@ -203,6 +166,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Surface"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/surfaceIcon"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
 
@@ -211,7 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:text="@{realty.surface}"
+                app:roundedText="@{realty.surface}"
                 app:layout_constraintStart_toEndOf="@+id/surfaceIcon"
                 app:layout_constraintTop_toBottomOf="@+id/surfaceLabel" />
 
@@ -219,7 +183,6 @@
                 android:id="@+id/surfaceUnitTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:text="m²"
                 app:layout_constraintStart_toEndOf="@+id/surfaceTextView"
                 app:layout_constraintTop_toBottomOf="@+id/surfaceLabel" />
@@ -241,6 +204,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Number of rooms"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/roomsIcon"
                 app:layout_constraintTop_toBottomOf="@+id/surfaceTextView" />
 
@@ -270,6 +234,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Number of bathrooms"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/bathroomsIcon"
                 app:layout_constraintTop_toBottomOf="@+id/roomsTextView" />
 
@@ -299,6 +264,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Number of bedrooms"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/bedroomsIcon"
                 app:layout_constraintTop_toBottomOf="@+id/bathroomsTextView" />
 
@@ -317,10 +283,10 @@
                 android:layout_height="160dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/agentLabel"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/closeToParkLabel"/>
+                app:layout_constraintTop_toBottomOf="@+id/closeToParkLabel" />
 
             <TextView
                 android:id="@+id/locationLabel"
@@ -329,6 +295,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Location"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/locationIcon"
                 app:layout_constraintTop_toBottomOf="@+id/bedroomsTextView" />
 
@@ -337,7 +304,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/locationLabel"
+                app:layout_constraintBottom_toBottomOf="@+id/locationTextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/locationLabel"
                 app:srcCompat="@drawable/ic_place_grey" />
@@ -360,8 +327,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:text="Agent in charge"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/locationTextView" />
 
@@ -370,13 +338,50 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
                 android:text="@{agent.displayName}"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/agentLabel" />
+
+            <TextView
+                android:id="@+id/entryDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Market entry date"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/agentTextView" />
+
+            <TextView
+                android:id="@+id/entryDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="16dp"
+                app:dateText="@{realty.marketEntryDate}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/entryDateLabel" />
+
+            <TextView
+                android:id="@+id/saleDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sale date"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/staticMap"
+                app:layout_constraintTop_toTopOf="@+id/entryDateLabel" />
+
+            <TextView
+                android:id="@+id/saleDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:dateText="@{realty.saleDate}"
+                app:layout_constraintStart_toStartOf="@+id/saleDateLabel"
+                app:layout_constraintTop_toBottomOf="@+id/entryDateLabel" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -22,7 +22,6 @@ public class ConversionTest {
 
 	@Test
 	public void dateShouldHaveCorrectFormat() {
-		//TODO: formatter à la main un calendar et verifier que ca correspond. Ou mock?
 		assertTrue(Utils.getTodayDate().matches("\\d{1,2}/\\d{1,2}/\\d{4}$"));
 	}
 }

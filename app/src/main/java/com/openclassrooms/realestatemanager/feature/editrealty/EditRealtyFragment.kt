@@ -97,7 +97,6 @@ class EditRealtyFragment : Fragment() {
     private fun wireUi() {
 
         typeSpinner.onSelected { editRealtyViewModel.editType(it ?: "") }
-        agentSpinner.onAgentSelected { editRealtyViewModel.editAgent(it ?: EstateAgent.default()) }
 
         districtLayoutView.validateAndUpdate(
                 validationFn = { isNullOrBlank("Should not be blank") },
@@ -168,7 +167,7 @@ class EditRealtyFragment : Fragment() {
     private fun render(realty: Realty) {
         typeSpinner.setText(realty.type)
         districtEditText.text = realty.district.toEditable()
-        priceEditText.text = realty.priceInDollars.toString().toEditable()
+        priceEditText.text = String.format("%.2f", realty.priceInDollars).toEditable()
         descriptionEditText.text = realty.description.toEditable()
         surfaceEditText.text = realty.surface.toString().toEditable()
         numberRoomsEditText.text = realty.numberOfRooms.toString().toEditable()
@@ -184,6 +183,10 @@ class EditRealtyFragment : Fragment() {
             soldDateButton.text = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(it)
         }
         entryDateButton.text = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).format(realty.marketEntryDate)
+        editRealtyViewModel.allAgents.observe(viewLifecycleOwner) { list ->
+            agentSpinner.setAgent(list.firstOrNull { it.id == realty.assignedEstateAgentId })
+            agentSpinner.onAgentSelected { editRealtyViewModel.editAgent(it ?: EstateAgent.default()) }
+        }
     }
 
     private fun saveRealty() {
