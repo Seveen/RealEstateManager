@@ -13,16 +13,12 @@ import com.openclassrooms.realestatemanager.utils.validateAndUpdate
 import kotlinx.android.synthetic.main.fragment_loan_calculator.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-/**
- * A simple [Fragment] subclass.
- */
 class LoanCalculatorFragment : Fragment() {
 
     private val loanCalculatorViewModel: LoanCalculatorViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_loan_calculator, container, false)
     }
 
@@ -53,14 +49,16 @@ class LoanCalculatorFragment : Fragment() {
                 updateFn = { loanCalculatorViewModel.updateDuration(it) }
         )
 
+        loanCalculatorViewModel.interests.observe(viewLifecycleOwner) {
+            interestsTextView.text = "$it $"
+        }
+
         loanCalculatorViewModel.monthlyInstallments.observe(viewLifecycleOwner) {
-            monthlyInstallmentsTextView.text = it.toString()
+            monthlyInstallmentsTextView.text = "$it $"
         }
 
         loanCalculatorViewModel.totalCost.observe(viewLifecycleOwner) {
-            totalCostTextView.text = it.toString()
+            totalCostTextView.text = "$it $"
         }
-
-
     }
 }
