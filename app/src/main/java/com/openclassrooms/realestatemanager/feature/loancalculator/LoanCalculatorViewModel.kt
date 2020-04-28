@@ -1,79 +1,40 @@
 package com.openclassrooms.realestatemanager.feature.loancalculator
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class LoanCalculatorViewModel: ViewModel() {
 
-    private val amount: MutableLiveData<Double> = MutableLiveData(0.0)
-    private val contribution: MutableLiveData<Double> = MutableLiveData(0.0)
-    private val interestRate: MutableLiveData<Double> = MutableLiveData(0.0)
-    private val duration: MutableLiveData<Int> = MutableLiveData(1)
+    private val calculator = LoanCalculator()
 
     fun updateAmount(value: Double) {
-        amount.value = value
+        calculator.amount = value
+        updateResults()
     }
 
     fun updateContribution(value: Double) {
-        contribution.value = value
+        calculator.contribution = value
+        updateResults()
     }
 
     fun updateInterestRate(value: Double) {
-        interestRate.value = value
+        calculator.interestRate = value
+        updateResults()
     }
 
     fun updateDuration(value: Int) {
-        duration.value = value
+        calculator.duration = value
+        updateResults()
     }
 
-    private val _outstanding = MediatorLiveData<Double>().apply {
-        value = 0.0
-        addSource(amount) { updateOutstanding() }
-        addSource(contribution) { updateOutstanding() }
-    }
+    val interests: MutableLiveData<Double> = MutableLiveData()
+    val totalCost: MutableLiveData<Double> = MutableLiveData()
+    val monthlyInstallments: MutableLiveData<Double> = MutableLiveData()
 
-    private val _interests = MediatorLiveData<Double>().apply {
-        value = 0.0
-        addSource(_outstanding) { updateInterests() }
-        addSource(interestRate) { updateInterests() }
-    }
-
-    val interests: LiveData<Double>
-        get() = _interests
-
-    private val _totalCost = MediatorLiveData<Double>().apply {
-        value = 0.0
-        addSource(_outstanding) { updateTotalCost() }
-        addSource(interests) { updateTotalCost() }
-    }
-
-    val totalCost: LiveData<Double>
-        get() = _totalCost
-
-    private val _monthlyInstallments = MediatorLiveData<Double>().apply {
-        value = 0.0
-        addSource(_totalCost) { updateMonthlyInstallments() }
-        addSource(duration) { updateMonthlyInstallments() }
-    }
-
-    val monthlyInstallments: LiveData<Double>
-        get() = _monthlyInstallments
-
-    private fun updateOutstanding() {
-        _outstanding.value = (amount.value?: 0.0) - (contribution.value?: 0.0)
-    }
-
-    private fun updateInterests() {
-        _interests.value =  (_outstanding.value?:1.0) * ((interestRate.value?:1.0) / 100)
-    }
-
-    private fun updateTotalCost() {
-        _totalCost.value = (_outstanding.value?:1.0) + (_interests.value?:0.0)
-    }
-
-    private fun updateMonthlyInstallments() {
-        _monthlyInstallments.value = (_totalCost.value?:0.0) / ((duration.value?:1) * 12)
+    private fun updateResults() {
+        val (newInterests, newTotalCost, newMonthly) = calculator.notifyDataChanged()
+        interests.value = newInterests
+        totalCost.value = newTotalCost
+        monthlyInstallments.value = newMonthly
     }
 }
