@@ -279,13 +279,14 @@
 
             <LinearLayout
                 android:id="@+id/staticMap"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_marginTop="8dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/agentLabel"
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/bathroomsLabel"
                 app:layout_constraintTop_toBottomOf="@+id/closeToParkLabel" />
 
             <TextView
@@ -327,7 +328,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="Agent in charge"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -359,9 +360,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginBottom="16dp"
                 app:dateText="@{realty.marketEntryDate}"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/entryDateLabel" />
 
@@ -369,19 +368,22 @@
                 android:id="@+id/saleDateLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="Sale date"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/staticMap"
-                app:layout_constraintTop_toTopOf="@+id/entryDateLabel" />
+                app:layout_constraintStart_toStartOf="@+id/entryDateLabel"
+                app:layout_constraintTop_toBottomOf="@+id/entryDateTextView" />
 
             <TextView
                 android:id="@+id/saleDateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginBottom="16dp"
                 app:dateText="@{realty.saleDate}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/saleDateLabel"
-                app:layout_constraintTop_toBottomOf="@+id/entryDateLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/saleDateLabel" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

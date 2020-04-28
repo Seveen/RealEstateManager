@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tablet_nav_graph"
+    app:startDestination="@id/detailsFragment">
+
+    <fragment
+        android:id="@+id/addAgentFragment"
+        android:name="com.openclassrooms.realestatemanager.feature.addagent.AddAgentFragment"
+        android:label="fragment_add_agent"
+        tools:layout="@layout/fragment_add_agent" />
+    <fragment
+        android:id="@+id/loanCalculatorFragment"
+        android:name="com.openclassrooms.realestatemanager.feature.loancalculator.LoanCalculatorFragment"
+        android:label="fragment_loan_calculator"
+        tools:layout="@layout/fragment_loan_calculator" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.openclassrooms.realestatemanager.feature.map.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <action android:id="@+id/action_global_mapFragment" app:destination="@id/mapFragment" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.openclassrooms.realestatemanager.feature.details.DetailsFragment"
+        android:label="DetailsFragment" >
+        <action
+            android:id="@+id/action_detailsFragment_to_editRealtyFragment"
+            app:destination="@id/editRealtyFragment" />
+    </fragment>
+    <action android:id="@+id/action_global_detailsFragment" app:destination="@id/detailsFragment" />
+    <fragment
+        android:id="@+id/editRealtyFragment"
+        android:name="com.openclassrooms.realestatemanager.feature.editrealty.EditRealtyFragment"
+        android:label="EditRealtyFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.openclassrooms.realestatemanager.feature.search.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+    </fragment>
+    <action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment" />
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.openclassrooms.realestatemanager.feature.search.SearchResultFragment"
+        android:label="fragment_search_result"
+        tools:layout="@layout/fragment_search_result" >
+        <action
+            android:id="@+id/action_searchResultFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <action android:id="@+id/action_global_addAgentFragment" app:destination="@id/addAgentFragment" />
+    <action android:id="@+id/action_global_loanCalculatorFragment" app:destination="@id/loanCalculatorFragment" />
+    <action android:id="@+id/action_global_editRealtyFragment" app:destination="@id/editRealtyFragment"/>
+</navigation>

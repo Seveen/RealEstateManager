@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.openclassrooms.realestatemanager.R
@@ -86,16 +87,47 @@ class SearchFragment : Fragment() {
     }
 
     private fun clearSearch() {
-        //TODO: Reset ui
-        searchViewModel.clear()
+        lowestPriceLayoutView.editText?.text = "".toEditable()
+        highestPriceLayoutView.editText?.text = "".toEditable()
+        minimumSurfaceLayoutView.editText?.text = "".toEditable()
+        maximumSurfaceLayoutView.editText?.text = "".toEditable()
+        nbRoomsLayoutView.editText?.text = "".toEditable()
+        nbBedRoomsLayoutView.editText?.text = "".toEditable()
+        nbBathRoomsLayoutView.editText?.text = "".toEditable()
+        districtSearchLayoutView.editText?.text = "".toEditable()
+
+        houseCheckBox.isChecked = false
+        flatCheckBox.isChecked = false
+        duplexCheckBox.isChecked = false
+        penthouseCheckBox.isChecked = false
+
+        parkCheckBox.isChecked = false
+        subwayCheckBox.isChecked = false
+        shopsCheckBox.isChecked = false
+
+        searchViewModel.clearQuery()
     }
 
     private fun searchRealty() {
-        //TODO: no validation errors before navigation
-        progressBar.visible = true
-        searchButton.visible = false
-        searchViewModel.search()
-        val action = SearchFragmentDirections.actionSearchFragmentToSearchResultFragment()
-        findNavController().navigate(action)
+        if (validateForm()) {
+            progressBar.visible = true
+            searchButton.visible = false
+            searchViewModel.search()
+            val action = SearchFragmentDirections.actionSearchFragmentToSearchResultFragment()
+            findNavController().navigate(action)
+        } else {
+            Toast.makeText(context, "You can't search with errors.", Toast.LENGTH_LONG).show()
+        }
     }
+
+    private fun validateForm() = validated(
+            lowestPriceLayoutView,
+            highestPriceLayoutView,
+            minimumSurfaceLayoutView,
+            maximumSurfaceLayoutView,
+            nbRoomsLayoutView,
+            nbBedRoomsLayoutView,
+            nbBathRoomsLayoutView,
+            districtSearchLayoutView
+    )
 }

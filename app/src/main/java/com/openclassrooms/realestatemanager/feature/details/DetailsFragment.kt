@@ -78,8 +78,8 @@ class DetailsFragment : Fragment(), OnMapReadyCallback {
             closeToSubwayLabel.gone = isCloseToSubway.not()
             closeToShopsLabel.gone = isCloseToShops.not()
             closeToParkLabel.gone = isCloseToPark.not()
-            saleDateLabel.gone = isSold.not()
-            saleDateTextView.gone = isSold.not()
+            saleDateLabel.visible = isSold
+            saleDateTextView.visible = isSold
         }
         realty.location?.let {
             map?.moveCamera(CameraUpdateFactory.newLatLngZoom(it, 16f))

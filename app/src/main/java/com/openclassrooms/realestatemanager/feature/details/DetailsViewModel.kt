@@ -5,6 +5,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.openclassrooms.realestatemanager.data.repository.AgentRepository
 import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
+import kotlinx.coroutines.Dispatchers
 
 class DetailsViewModel(
         private val realtyRepository: RealtyRepository,
@@ -15,9 +16,9 @@ class DetailsViewModel(
 
     val currentRealtyAgent = agentRepository
             .getAgentById(currentRealty.value?.assignedEstateAgentId ?: 0)
-            .asLiveData()
+            .asLiveData(Dispatchers.Default + viewModelScope.coroutineContext)
 
     fun getAgentById(id: Int) = agentRepository.getAgentById(id)
-            .asLiveData(viewModelScope.coroutineContext)
+            .asLiveData(Dispatchers.Default + viewModelScope.coroutineContext)
 
 }

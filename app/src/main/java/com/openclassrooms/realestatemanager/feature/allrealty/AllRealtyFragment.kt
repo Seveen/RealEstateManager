@@ -9,6 +9,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.TabletNavGraphDirections
 import com.openclassrooms.realestatemanager.data.model.Realty
 import com.openclassrooms.realestatemanager.utils.visible
 import kotlinx.android.synthetic.main.fragment_all_realty.*
@@ -22,7 +23,11 @@ class AllRealtyFragment : Fragment() {
 
     private val adapter = AllRealtyAdapter(emptyList()) {
         allRealtyViewModel.setCurrentRealty(it)
-        val action = AllRealtyFragmentDirections.actionAllRealtyFragmentToDetailsFragment()
+        val action = if (resources.getBoolean(R.bool.isTablet)) {
+            TabletNavGraphDirections.actionGlobalDetailsFragment()
+        } else {
+            AllRealtyFragmentDirections.actionAllRealtyFragmentToDetailsFragment()
+        }
         findNavController().navigate(action)
     }
 

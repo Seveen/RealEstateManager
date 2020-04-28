@@ -106,7 +106,7 @@ class SearchViewModel(private val realtyRepository: RealtyRepository) : ViewMode
         }
     }
 
-    fun clear() {
+    fun clearQuery() {
         _currentQuery.value = RealtyQuery.default()
     }
 

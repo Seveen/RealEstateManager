@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import com.openclassrooms.realestatemanager.PhoneNavGraphDirections
 import com.openclassrooms.realestatemanager.R
+import com.openclassrooms.realestatemanager.TabletNavGraphDirections
 import com.openclassrooms.realestatemanager.feature.allrealty.AllRealtyFragmentDirections
 import com.openclassrooms.realestatemanager.feature.details.DetailsFragmentDirections
 import com.openclassrooms.realestatemanager.utils.ConnectionLiveData
@@ -22,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     private val mainViewModel: MainActivityViewModel by viewModel()
+
+    private var isTablet = false
 
     private val navListener = NavController.OnDestinationChangedListener { _, destination, _ ->
         when (destination.id) {
@@ -39,9 +42,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        isTablet = resources.getBoolean(R.bool.isTablet)
+
+        if (isTablet) mainViewModel.setRealtyByDefault()
+
         navController = findNavController(this, R.id.nav_host)
 
-        setupToolbar()
+        renderAllRealtyMenu()
+
         backButton.setOnClickListener {
             navController.navigateUp()
         }
@@ -69,70 +77,103 @@ class MainActivity : AppCompatActivity() {
         setupToolbar()
         fab.visible = true
         fab.setOnClickListener {
-            val action = PhoneNavGraphDirections.actionGlobalSearchFragment()
+            val action = if (isTablet) {
+                PhoneNavGraphDirections.actionGlobalSearchFragment()
+            } else {
+                TabletNavGraphDirections.actionGlobalSearchFragment()
+            }
             navController.navigate(action)
         }
         toolBar.menu.findItem(R.id.loanCalculator).isVisible = true
         toolBar.menu.findItem(R.id.map).isVisible = true
         toolBar.menu.findItem(R.id.newRealty).isVisible = true
-        toolBar.menu.findItem(R.id.editRealty).isVisible = false
+        toolBar.menu.findItem(R.id.editRealty).isVisible = isTablet
         backButton.visible = false
     }
 
     private fun renderDetailsMenu() {
-        fab.visible = false
-        toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
-        toolBar.menu.findItem(R.id.map).isVisible = false
-        toolBar.menu.findItem(R.id.newRealty).isVisible = false
-        toolBar.menu.findItem(R.id.editRealty).isVisible = true
-        backButton.visible = true
+        if (isTablet) {
+            showTabletList(true)
+            backButton.visible = false
+        }
+        else {
+            fab.visible = false
+            toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
+            toolBar.menu.findItem(R.id.map).isVisible = false
+            toolBar.menu.findItem(R.id.newRealty).isVisible = false
+            toolBar.menu.findItem(R.id.editRealty).isVisible = true
+            backButton.visible = true
+        }
+        toolBarTitle.text = "Real Estate Manager"
     }
 
     private fun renderEditMenu() {
-        fab.visible = false
-        toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
-        toolBar.menu.findItem(R.id.map).isVisible = false
-        toolBar.menu.findItem(R.id.newRealty).isVisible = false
-        toolBar.menu.findItem(R.id.editRealty).isVisible = false
+        if (isTablet) {
+            showTabletList(false)
+        }
+        else {
+            fab.visible = false
+            toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
+            toolBar.menu.findItem(R.id.map).isVisible = false
+            toolBar.menu.findItem(R.id.newRealty).isVisible = false
+            toolBar.menu.findItem(R.id.editRealty).isVisible = false
+        }
+        toolBarTitle.text = "Edit"
         backButton.visible = true
     }
 
     private fun renderMapMenu() {
+        if (isTablet) {
+            showTabletList(false)
+        } else {
+            fab.visible = false
+            toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
+            toolBar.menu.findItem(R.id.map).isVisible = false
+            toolBar.menu.findItem(R.id.newRealty).isVisible = false
+        }
         toolBarTitle.text = "Map"
-        fab.visible = false
-        toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
-        toolBar.menu.findItem(R.id.map).isVisible = false
-        toolBar.menu.findItem(R.id.newRealty).isVisible = false
         backButton.visible = true
     }
 
     private fun renderSearchMenu() {
+        if (isTablet) {
+            showTabletList(false)
+        } else {
+            fab.visible = false
+            toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
+            toolBar.menu.findItem(R.id.map).isVisible = false
+            toolBar.menu.findItem(R.id.newRealty).isVisible = false
+            toolBar.menu.findItem(R.id.editRealty).isVisible = false
+        }
         toolBarTitle.text = "Search realty"
-        fab.visible = false
-        toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
-        toolBar.menu.findItem(R.id.map).isVisible = false
-        toolBar.menu.findItem(R.id.newRealty).isVisible = false
-        toolBar.menu.findItem(R.id.editRealty).isVisible = false
         backButton.visible = true
     }
 
     private fun renderAddAgentMenu() {
+        if (isTablet) {
+            showTabletList(false)
+        } else {
+            fab.visible = false
+            toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
+            toolBar.menu.findItem(R.id.map).isVisible = false
+            toolBar.menu.findItem(R.id.newRealty).isVisible = false
+            toolBar.menu.findItem(R.id.editRealty).isVisible = false
+        }
         toolBarTitle.text = "Add agent"
-        fab.visible = false
-        toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
-        toolBar.menu.findItem(R.id.map).isVisible = false
-        toolBar.menu.findItem(R.id.newRealty).isVisible = false
-        toolBar.menu.findItem(R.id.editRealty).isVisible = false
         backButton.visible = true
     }
 
     private fun renderCalculatorMenu() {
+        if (isTablet) {
+            showTabletList(false)
+        } else {
+            fab.visible = false
+            toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
+            toolBar.menu.findItem(R.id.map).isVisible = false
+            toolBar.menu.findItem(R.id.newRealty).isVisible = false
+            toolBar.menu.findItem(R.id.editRealty).isVisible = false
+        }
         toolBarTitle.text = "Loan calculator"
-        fab.visible = false
-        toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
-        toolBar.menu.findItem(R.id.map).isVisible = false
-        toolBar.menu.findItem(R.id.newRealty).isVisible = false
-        toolBar.menu.findItem(R.id.editRealty).isVisible = false
         backButton.visible = true
     }
 
@@ -176,14 +217,28 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.addRealty -> {
                     mainViewModel.clearCurrentRealty()
-                    val action = AllRealtyFragmentDirections.actionAllRealtyFragmentToEditRealtyFragment()
+                    val action = when {
+                        isTablet -> TabletNavGraphDirections.actionGlobalEditRealtyFragment()
+                        else -> AllRealtyFragmentDirections.actionAllRealtyFragmentToEditRealtyFragment()
+                    }
                     navController.navigate(action)
                     true
                 }
                 else -> false
-
             }
         }
         popup.show()
+    }
+
+    private fun showTabletList(value: Boolean) {
+        if (value) {
+            supportFragmentManager.beginTransaction()
+                    .show(allRealtyFragment)
+                    .commit()
+        } else {
+            supportFragmentManager.beginTransaction()
+                    .hide(allRealtyFragment)
+                    .commit()
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.feature.mainactivity
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.openclassrooms.realestatemanager.data.model.Realty
@@ -15,8 +14,15 @@ class MainActivityViewModel(
 ) : ViewModel() {
 
     fun clearCurrentRealty() {
-        Log.d("REPOSITORYLOG", "from mainVM")
         realtyRepository.setCurrentRealty(Realty.default())
+    }
+
+    fun setRealtyByDefault() {
+        viewModelScope.launch {
+            realtyRepository.getAllRealty().collect {
+                realtyRepository.setCurrentRealty(it.first())
+            }
+        }
     }
 
     fun updateGeolocations() = viewModelScope.launch {

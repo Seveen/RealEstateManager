@@ -17,7 +17,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class ContentProviderTest {
 
-    lateinit var contentResolver: ContentResolver
+    private lateinit var contentResolver: ContentResolver
 
     @Before
     fun setup() {
