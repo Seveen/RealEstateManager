@@ -16,7 +16,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
-//Here we're using Flow().take(1) to run asserts on the first result of the flow, otherwise the test would never stop and hang
+//Here we're using Flow.take(1) to run asserts on the first result of the flow, otherwise the test would never stop and hang
 @RunWith(AndroidJUnit4::class)
 class DatabaseTest {
 
@@ -78,6 +78,22 @@ class DatabaseTest {
 
             realtyDao.getRealtyById(1).take(1).collect {
                 assertEquals(1, it.id)
+            }
+        }
+    }
+
+    @Test
+    fun insertAndDeleteRealty() {
+        runBlocking {
+            val expectedRealty = Realty.default().copy(id = 1)
+            realtyDao.insert(expectedRealty)
+            realtyDao.getAllRealty().take(1).collect {
+                assertEquals(1, it.count())
+            }
+
+            realtyDao.delete(1)
+            realtyDao.getAllRealty().take(1).collect {
+                assertEquals(0, it.count())
             }
         }
     }
