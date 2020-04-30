@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.feature.loancalculator
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,7 @@ class LoanCalculatorFragment : Fragment() {
         wireUi()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun wireUi() {
         amountLayoutView.validateAndUpdate(
                 validationFn = { convertToDouble("Not a number") },

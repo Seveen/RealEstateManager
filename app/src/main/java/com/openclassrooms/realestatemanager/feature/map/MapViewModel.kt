@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 
 class MapViewModel(
         private val realtyRepository: RealtyRepository,
-        private val locationRepository: LocationRepository
+        locationRepository: LocationRepository
 ) : ViewModel() {
 
     private val _realtyList = realtyRepository

@@ -40,7 +40,7 @@ class ContentProviderTest {
 
     @Test
     fun insertAndGetItem() {
-        val realtyUri = contentResolver.insert(RoomContentProvider.URI_ITEM, generateRealty())
+        contentResolver.insert(RoomContentProvider.URI_ITEM, generateRealty())
 
         val cursor = contentResolver.query(ContentUris.withAppendedId(RoomContentProvider.URI_ITEM, 1), null, null, null, null)
         assertThat(cursor, notNullValue())

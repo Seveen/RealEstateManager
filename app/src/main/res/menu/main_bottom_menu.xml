@@ -5,21 +5,21 @@
     <item
         android:id="@+id/loanCalculator"
         android:icon="@drawable/ic_local_atm_white"
-        android:title="Loan Calculator"
+        android:title="@string/loan_calculator"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/newRealty"
         android:icon="@drawable/ic_add_white"
-        android:title="New Realty"
+        android:title="@string/new_realty"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/map"
         android:icon="@drawable/ic_map_white"
-        android:title="Map"
+        android:title="@string/map"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/editRealty"
         android:icon="@drawable/ic_edit_white"
-        android:title="Edit Realty"
+        android:title="@string/edit_realty"
         app:showAsAction="ifRoom"/>
 </menu>

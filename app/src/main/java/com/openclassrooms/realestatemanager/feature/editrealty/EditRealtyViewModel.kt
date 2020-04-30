@@ -14,7 +14,7 @@ import java.util.*
 
 class EditRealtyViewModel(
         private val realtyRepository: RealtyRepository,
-        private val agentRepository: AgentRepository
+        agentRepository: AgentRepository
 ) : ViewModel() {
 
     val currentRealty = realtyRepository.currentRealty

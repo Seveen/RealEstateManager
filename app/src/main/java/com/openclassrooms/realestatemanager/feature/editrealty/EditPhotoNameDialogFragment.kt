@@ -1,5 +1,6 @@
 package com.openclassrooms.realestatemanager.feature.editrealty
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
@@ -11,6 +12,7 @@ import kotlinx.android.synthetic.main.dialog_edit_photo_name.view.*
 
 class EditPhotoNameDialogFragment(private val startingName: String = "", private val callback: (String) -> Unit): DialogFragment() {
 
+    @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             AlertDialog.Builder(it)

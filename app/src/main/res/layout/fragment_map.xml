@@ -11,7 +11,7 @@
         android:id="@+id/errorState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No connection or geolocation data."
+        android:text="@string/no_connection_or_geolocation_data"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Retry"
+        android:text="@string/retry"
         app:layout_constraintEnd_toEndOf="@+id/errorState"
         app:layout_constraintStart_toStartOf="@+id/errorState"
         app:layout_constraintTop_toBottomOf="@+id/errorState" />
@@ -37,6 +37,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="FragmentTagUsage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Type"
+                android:text="@string/type"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/photoGalleryRecyclerView" />
@@ -68,7 +68,7 @@
                 android:id="@+id/priceLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Price"
+                android:text="@string/price"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/staticMap"
                 app:layout_constraintTop_toTopOf="@+id/typeLabel" />
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Description"
+                android:text="@string/description"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/priceTextView" />
@@ -99,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Close to:"
+                android:text="@string/close_to"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/staticMap"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
@@ -111,7 +111,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:drawableStart="@drawable/ic_check_grey"
-                android:text="Subway"
+                android:text="@string/subway"
                 app:layout_constraintStart_toStartOf="@+id/closeToLabel"
                 app:layout_constraintTop_toBottomOf="@+id/closeToLabel" />
 
@@ -122,7 +122,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:drawableStart="@drawable/ic_check_grey"
-                android:text="Shops"
+                android:text="@string/shops"
                 app:layout_constraintStart_toStartOf="@+id/closeToLabel"
                 app:layout_constraintTop_toBottomOf="@+id/closeToSubwayLabel" />
 
@@ -133,7 +133,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:drawableStart="@drawable/ic_check_grey"
-                android:text="Park"
+                android:text="@string/park"
                 app:layout_constraintStart_toStartOf="@+id/closeToLabel"
                 app:layout_constraintTop_toBottomOf="@+id/closeToShopsLabel" />
 
@@ -157,7 +157,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/surfaceTextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/surfaceLabel"
-                app:srcCompat="@drawable/ic_surface_grey" />
+                app:srcCompat="@drawable/ic_surface_grey"
+                android:contentDescription="@string/surface_icon"/>
 
             <TextView
                 android:id="@+id/surfaceLabel"
@@ -165,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Surface"
+                android:text="@string/surface"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/surfaceIcon"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
@@ -183,7 +184,7 @@
                 android:id="@+id/surfaceUnitTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="m²"
+                android:text="@string/msquared"
                 app:layout_constraintStart_toEndOf="@+id/surfaceTextView"
                 app:layout_constraintTop_toBottomOf="@+id/surfaceLabel" />
 
@@ -195,7 +196,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/roomsTextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/roomsLabel"
-                app:srcCompat="@drawable/ic_home_grey" />
+                app:srcCompat="@drawable/ic_home_grey"
+                android:contentDescription="@string/rooms_icon"/>
 
             <TextView
                 android:id="@+id/roomsLabel"
@@ -203,7 +205,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Number of rooms"
+                android:text="@string/number_of_rooms"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/roomsIcon"
                 app:layout_constraintTop_toBottomOf="@+id/surfaceTextView" />
@@ -225,7 +227,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/bathroomsTextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/bathroomsLabel"
-                app:srcCompat="@drawable/ic_hot_tub_grey" />
+                app:srcCompat="@drawable/ic_hot_tub_grey"
+                android:contentDescription="@string/bathrooms_icon"/>
 
             <TextView
                 android:id="@+id/bathroomsLabel"
@@ -233,7 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Number of bathrooms"
+                android:text="@string/number_of_bathrooms"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/bathroomsIcon"
                 app:layout_constraintTop_toBottomOf="@+id/roomsTextView" />
@@ -255,7 +258,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/bedroomsTextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/bedroomsLabel"
-                app:srcCompat="@drawable/ic_bedrooms_grey" />
+                app:srcCompat="@drawable/ic_bedrooms_grey"
+                android:contentDescription="@string/bedrooms_icon"/>
 
             <TextView
                 android:id="@+id/bedroomsLabel"
@@ -263,7 +267,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Number of bedrooms"
+                android:text="@string/number_of_bedrooms"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/bedroomsIcon"
                 app:layout_constraintTop_toBottomOf="@+id/bathroomsTextView" />
@@ -287,7 +291,8 @@
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/bathroomsLabel"
-                app:layout_constraintTop_toBottomOf="@+id/closeToParkLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/closeToParkLabel"
+                android:orientation="horizontal" />
 
             <TextView
                 android:id="@+id/locationLabel"
@@ -295,7 +300,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Location"
+                android:text="@string/location"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/locationIcon"
                 app:layout_constraintTop_toBottomOf="@+id/bedroomsTextView" />
@@ -308,7 +313,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/locationTextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/locationLabel"
-                app:srcCompat="@drawable/ic_place_grey" />
+                app:srcCompat="@drawable/ic_place_grey"
+                android:contentDescription="@string/location_icon"/>
 
             <TextView
                 android:id="@+id/locationTextView"
@@ -329,7 +335,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Agent in charge"
+                android:text="@string/agent_in_charge"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/locationTextView" />
@@ -350,7 +356,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Market entry date"
+                android:text="@string/market_entry_date"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/agentTextView" />
@@ -369,7 +375,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Sale date"
+                android:text="@string/sale_date"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/entryDateLabel"
                 app:layout_constraintTop_toBottomOf="@+id/entryDateTextView" />

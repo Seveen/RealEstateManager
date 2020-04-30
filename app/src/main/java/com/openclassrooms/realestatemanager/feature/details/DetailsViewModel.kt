@@ -8,15 +8,11 @@ import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
 import kotlinx.coroutines.Dispatchers
 
 class DetailsViewModel(
-        private val realtyRepository: RealtyRepository,
+        realtyRepository: RealtyRepository,
         private val agentRepository: AgentRepository
 ) : ViewModel() {
 
     val currentRealty = realtyRepository.currentRealty
-
-    val currentRealtyAgent = agentRepository
-            .getAgentById(currentRealty.value?.assignedEstateAgentId ?: 0)
-            .asLiveData(Dispatchers.Default + viewModelScope.coroutineContext)
 
     fun getAgentById(id: Int) = agentRepository.getAgentById(id)
             .asLiveData(Dispatchers.Default + viewModelScope.coroutineContext)

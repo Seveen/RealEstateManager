@@ -46,9 +46,7 @@ class SearchResultFragment : Fragment() {
         emptyState.visible = false
 
         searchViewModel.searchResult.observe(viewLifecycleOwner) { result ->
-            result?.let {
-                render(it)
-            }
+            render(result)
         }
     }
 

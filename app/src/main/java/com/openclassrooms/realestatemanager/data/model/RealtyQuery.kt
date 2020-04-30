@@ -1,6 +1,5 @@
 package com.openclassrooms.realestatemanager.data.model
 
-//TODO : Add more requests
 data class RealtyQuery(
     val types: Set<String>,
     val lowestPrice: Double?,

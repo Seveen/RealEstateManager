@@ -3,8 +3,8 @@
 
     <item
         android:id="@+id/addRealty"
-        android:title="Realty" />
+        android:title="@string/realty" />
     <item
         android:id="@+id/addAgent"
-        android:title="Agent" />
+        android:title="@string/agent" />
 </menu>

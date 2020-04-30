@@ -72,11 +72,11 @@ class RoomContentProvider: ContentProvider() {
     }
 
     override fun getType(uri: Uri): String? =
-        "vnd.android.cursor.item/$AUTHORITY.$TABLE_NAME";
+        "vnd.android.cursor.item/$AUTHORITY.$TABLE_NAME"
 
     companion object {
-        val AUTHORITY = "com.openclassrooms.realestatemanager.data.provider"
+        const val AUTHORITY = "com.openclassrooms.realestatemanager.data.provider"
         val TABLE_NAME = Realty::class.java.simpleName
-        val URI_ITEM = Uri.parse("content://$AUTHORITY/$TABLE_NAME")
+        val URI_ITEM: Uri = Uri.parse("content://$AUTHORITY/$TABLE_NAME")
     }
 }

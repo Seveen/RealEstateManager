@@ -1,8 +1,6 @@
 package com.openclassrooms.realestatemanager.data.dto
 
 import com.google.gson.annotations.SerializedName
-import com.openclassrooms.realestatemanager.data.dto.Northeast
-import com.openclassrooms.realestatemanager.data.dto.Southwest
 
 /*
 Copyright (c) 2020 Kotlin Data Classes Generated from JSON powered by http://www.json2kotlin.com

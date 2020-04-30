@@ -26,7 +26,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
-    private val PERMISSIONS_ACCESS_CODE = 126;
+    private val PERMISSIONS_ACCESS_CODE = 126
 
     private lateinit var googleMapFragment: SupportMapFragment
     private var map: GoogleMap? = null

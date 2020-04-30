@@ -20,6 +20,7 @@ public class ConversionTest {
 		assertEquals(1000, dollars);
 	}
 
+	@SuppressWarnings("HardCodedStringLiteral")
 	@Test
 	public void dateShouldHaveCorrectFormat() {
 		assertTrue(Utils.getTodayDate().matches("\\d{1,2}/\\d{1,2}/\\d{4}$"));

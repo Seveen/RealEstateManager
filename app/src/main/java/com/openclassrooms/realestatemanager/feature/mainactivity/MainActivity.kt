@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
             toolBar.menu.findItem(R.id.editRealty).isVisible = true
             backButton.visible = true
         }
-        toolBarTitle.text = "Real Estate Manager"
+        toolBarTitle.text = getString(R.string.real_estate_manager)
     }
 
     private fun renderEditMenu() {
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity() {
             toolBar.menu.findItem(R.id.newRealty).isVisible = false
             toolBar.menu.findItem(R.id.editRealty).isVisible = false
         }
-        toolBarTitle.text = "Edit"
+        toolBarTitle.text = getString(R.string.edit)
         backButton.visible = true
     }
 
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
             toolBar.menu.findItem(R.id.map).isVisible = false
             toolBar.menu.findItem(R.id.newRealty).isVisible = false
         }
-        toolBarTitle.text = "Map"
+        toolBarTitle.text = getString(R.string.map)
         backButton.visible = true
     }
 
@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity() {
             toolBar.menu.findItem(R.id.newRealty).isVisible = false
             toolBar.menu.findItem(R.id.editRealty).isVisible = false
         }
-        toolBarTitle.text = "Search realty"
+        toolBarTitle.text = getString(R.string.search_realty)
         backButton.visible = true
     }
 
@@ -159,7 +159,7 @@ class MainActivity : AppCompatActivity() {
             toolBar.menu.findItem(R.id.newRealty).isVisible = false
             toolBar.menu.findItem(R.id.editRealty).isVisible = false
         }
-        toolBarTitle.text = "Add agent"
+        toolBarTitle.text = getString(R.string.add_agent)
         backButton.visible = true
     }
 
@@ -173,12 +173,12 @@ class MainActivity : AppCompatActivity() {
             toolBar.menu.findItem(R.id.newRealty).isVisible = false
             toolBar.menu.findItem(R.id.editRealty).isVisible = false
         }
-        toolBarTitle.text = "Loan calculator"
+        toolBarTitle.text = getString(R.string.loan_calculator)
         backButton.visible = true
     }
 
     private fun setupToolbar() {
-        toolBarTitle.text = "Real Estate Manager"
+        toolBarTitle.text = getString(R.string.real_estate_manager)
         toolBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.loanCalculator -> {

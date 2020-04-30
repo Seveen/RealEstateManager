@@ -1,6 +1,9 @@
 package com.openclassrooms.realestatemanager.feature.search
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.openclassrooms.realestatemanager.data.model.Realty
 import com.openclassrooms.realestatemanager.data.model.RealtyQuery
 import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
@@ -9,8 +12,6 @@ import kotlinx.coroutines.Dispatchers
 class SearchViewModel(private val realtyRepository: RealtyRepository) : ViewModel() {
 
     private var _currentQuery: MutableLiveData<RealtyQuery> = MutableLiveData(RealtyQuery.default())
-    val currentQuery: LiveData<RealtyQuery>
-        get() = _currentQuery
 
     val searchResult = realtyRepository
             .getSearchResult()

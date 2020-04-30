@@ -1,21 +1,19 @@
 package com.openclassrooms.realestatemanager.utils
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.databinding.BindingConversion
 import java.text.SimpleDateFormat
 import java.util.*
-
-@BindingConversion
-fun convertDoubleToString(value: Double) = value.toString()
 
 @BindingAdapter("textFromInt")
 fun setTextFromInt(view: TextView, value: Int) {
     view.text = value.toString().toEditable()
 }
 
+@SuppressLint("SetTextI18n")
 @BindingAdapter("priceText")
 fun setPriceText(view: TextView, price: Double) {
     view.text = "$${String.format("%,.0f", price)}"
@@ -23,7 +21,7 @@ fun setPriceText(view: TextView, price: Double) {
 
 @BindingAdapter("roundedText")
 fun setRoundedText(view: TextView, value: Double) {
-    view.text = "${String.format("%,.0f", value)}"
+    view.text = String.format("%,.0f", value)
 }
 
 @BindingAdapter("srcUri")

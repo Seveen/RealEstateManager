@@ -2,8 +2,6 @@ package com.openclassrooms.realestatemanager.feature.allrealty
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.openclassrooms.realestatemanager.data.model.Realty
 import com.openclassrooms.realestatemanager.databinding.RealtyListItemBinding

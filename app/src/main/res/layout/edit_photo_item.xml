@@ -34,7 +34,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcUri="@{photo.uri}"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                tools:srcCompat="@tools:sample/backgrounds/scenic"
+                android:contentDescription="@string/photo"/>
 
             <ImageView
                 android:id="@+id/textBackgroundImageView"
@@ -44,7 +45,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:contentDescription="@string/background"/>
 
             <TextView
                 android:id="@+id/photoTextView"
@@ -70,7 +72,9 @@
                 android:background="#00FFFFFF"
                 app:layout_constraintEnd_toStartOf="@+id/removePhotoButton"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_edit_white" />
+                app:srcCompat="@drawable/ic_edit_white"
+                android:contentDescription="@string/edit_photo_button"
+                tools:ignore="VectorDrawableCompat" />
 
             <ImageButton
                 android:id="@+id/removePhotoButton"
@@ -81,7 +85,8 @@
                 android:background="#00FFFFFF"
                 app:layout_constraintEnd_toEndOf="@+id/photoImageView"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_cancel_white" />
+                app:srcCompat="@drawable/ic_cancel_white"
+                android:contentDescription="@string/remove_photo_button"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

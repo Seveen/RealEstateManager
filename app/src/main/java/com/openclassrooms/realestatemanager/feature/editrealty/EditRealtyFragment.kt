@@ -280,12 +280,12 @@ class EditRealtyFragment : Fragment() {
         }, REQUEST_IMAGE_INSERT)
     }
 
-    lateinit var currentPhotoPath: String
+    private lateinit var currentPhotoPath: String
 
     @Throws(IOException::class)
     private fun createImageFile(): File {
         // Create an image file name
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ENGLISH).format(Date())
         val storageDir: File = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
         return File.createTempFile(
                 "JPEG_${timeStamp}_", /* prefix */
