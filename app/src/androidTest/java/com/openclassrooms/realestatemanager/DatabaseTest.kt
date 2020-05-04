@@ -8,6 +8,7 @@ import com.openclassrooms.realestatemanager.data.database.RealtyDatabase
 import com.openclassrooms.realestatemanager.data.model.EstateAgent
 import com.openclassrooms.realestatemanager.data.model.Realty
 import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
@@ -17,6 +18,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 //Here we're using Flow.take(1) to run asserts on the first result of the flow, otherwise the test would never stop and hang
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class DatabaseTest {
 
