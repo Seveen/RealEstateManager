@@ -27,31 +27,29 @@
 
             <ImageButton
                 android:id="@+id/takePhotoButton"
-                android:layout_width="0dp"
+                android:layout_width="64dp"
                 android:layout_height="32dp"
-                android:layout_marginStart="128dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/button_shape"
-                app:layout_constraintEnd_toStartOf="@+id/insertPhotoButton"
+                android:contentDescription="@string/take_photo_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.42"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/galleryRecyclerView"
-                app:srcCompat="@drawable/ic_photo_camera_white"
-                android:contentDescription="@string/take_photo_button"/>
+                app:srcCompat="@drawable/ic_photo_camera_white" />
 
             <ImageButton
                 android:id="@+id/insertPhotoButton"
-                android:layout_width="0dp"
+                android:layout_width="64dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="128dp"
                 android:background="@drawable/button_shape"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/insert_photo_button"
                 app:layout_constraintStart_toEndOf="@+id/takePhotoButton"
                 app:layout_constraintTop_toBottomOf="@+id/galleryRecyclerView"
-                app:srcCompat="@drawable/ic_insert_photo_white"
-                android:contentDescription="@string/insert_photo_button"/>
+                app:srcCompat="@drawable/ic_insert_photo_white" />
 
             <TextView
                 android:id="@+id/typeLabel"
