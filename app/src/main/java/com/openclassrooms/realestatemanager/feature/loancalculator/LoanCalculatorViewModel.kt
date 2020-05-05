@@ -2,6 +2,7 @@ package com.openclassrooms.realestatemanager.feature.loancalculator
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.openclassrooms.realestatemanager.data.model.LoanCalculator
 
 class LoanCalculatorViewModel: ViewModel() {
 

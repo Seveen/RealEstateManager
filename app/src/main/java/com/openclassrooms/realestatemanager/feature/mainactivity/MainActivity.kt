@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         //Checks connectivity and launches geolocation updating if network is present
         ConnectionLiveData(applicationContext).observe(this) { isConnected ->
             if (isConnected) {
-                Log.d("MAIN", "Updating geolocations")
+                Log.i(javaClass.canonicalName, "Updating geolocations")
                 mainViewModel.updateGeolocations()
             }
         }

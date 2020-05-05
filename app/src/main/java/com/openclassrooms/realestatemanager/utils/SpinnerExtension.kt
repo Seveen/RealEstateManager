@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.openclassrooms.realestatemanager.utils
 
 import android.view.View

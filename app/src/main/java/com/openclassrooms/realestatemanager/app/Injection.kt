@@ -5,7 +5,6 @@ import com.openclassrooms.realestatemanager.data.database.RealtyDatabase
 import com.openclassrooms.realestatemanager.data.repository.AgentRepository
 import com.openclassrooms.realestatemanager.data.repository.LocationRepository
 import com.openclassrooms.realestatemanager.data.repository.RealtyRepository
-import com.openclassrooms.realestatemanager.data.repository.RoomRealtyRepository
 import com.openclassrooms.realestatemanager.data.service.GeocodingClient
 import com.openclassrooms.realestatemanager.data.service.LocationService
 import com.openclassrooms.realestatemanager.feature.addagent.AddAgentViewModel
@@ -29,7 +28,7 @@ val repoModule = module {
     single { LocationService(get()) }
     single { get<RealtyDatabase>().realtyDao() }
     single { get<RealtyDatabase>().agentDao() }
-    single<RealtyRepository> { RoomRealtyRepository(get(), get()) }
+    single { RealtyRepository(get(), get()) }
     single { AgentRepository(get()) }
     single { LocationRepository(get()) }
 }

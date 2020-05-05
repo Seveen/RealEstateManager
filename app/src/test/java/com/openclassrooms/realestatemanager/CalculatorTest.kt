@@ -1,6 +1,6 @@
 package com.openclassrooms.realestatemanager
 
-import com.openclassrooms.realestatemanager.feature.loancalculator.LoanCalculator
+import com.openclassrooms.realestatemanager.data.model.LoanCalculator
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 

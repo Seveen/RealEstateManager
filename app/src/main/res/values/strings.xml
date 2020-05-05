@@ -42,7 +42,7 @@
     <string name="interest_rate">Interest rate</string>
     <string name="percent">%</string>
     <string name="duration">Duration</string>
-    <string name="y">Y</string>
+    <string name="y">y</string>
     <string name="interests">Interests</string>
     <string name="total_cost">Total cost</string>
     <string name="monthly_installments">Monthly Installments</string>

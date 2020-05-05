@@ -198,7 +198,7 @@ class EditRealtyFragment : Fragment() {
                         deletedPhotos.forEach { deletePhoto(it) }
                         findNavController().navigateUp()
                     },
-                    doOnError = { Toast.makeText(context, "Can't save with errors.", Toast.LENGTH_LONG).show() }
+                    doOnError = { Toast.makeText(context, "You need at least one picture.", Toast.LENGTH_LONG).show() }
             )
         } else {
             Toast.makeText(context, "You can't save with errors.", Toast.LENGTH_LONG).show()

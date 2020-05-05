@@ -1,4 +1,4 @@
-package com.openclassrooms.realestatemanager.feature.loancalculator
+package com.openclassrooms.realestatemanager.data.model
 
 class LoanCalculator {
     var amount: Double = 0.0
