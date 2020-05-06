@@ -19,8 +19,10 @@ class MainActivityViewModel(
 
     fun setRealtyByDefault() {
         viewModelScope.launch {
-            realtyRepository.getAllRealty().collect {
-                realtyRepository.setCurrentRealty(it.first())
+            realtyRepository.getAllRealty().collect { list ->
+                list.firstOrNull()?.let {
+                    realtyRepository.setCurrentRealty(it)
+                }
             }
         }
     }
