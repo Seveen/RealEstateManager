@@ -40,11 +40,11 @@ class EditRealtyFragment : Fragment() {
     private val editRealtyViewModel: EditRealtyViewModel by viewModel()
 
     private val adapter = EditRealtyPhotoAdapter(emptyList(),
-     onDeletePhoto = {
-         addPhotoToDeletion(it)
-        editRealtyViewModel.removePhoto(it)
-    }, onRenamePhoto = {
-        renamePhoto(it)
+         onDeletePhoto = {
+             addPhotoToDeletion(it)
+            editRealtyViewModel.removePhoto(it)
+         }, onRenamePhoto = {
+            renamePhoto(it)
     })
 
     private val deletedPhotos: MutableList<Photo> = mutableListOf()
