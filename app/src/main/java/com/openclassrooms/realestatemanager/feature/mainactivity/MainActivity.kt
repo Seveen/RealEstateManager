@@ -130,6 +130,7 @@ class MainActivity : AppCompatActivity() {
             toolBar.menu.findItem(R.id.loanCalculator).isVisible = false
             toolBar.menu.findItem(R.id.map).isVisible = false
             toolBar.menu.findItem(R.id.newRealty).isVisible = false
+            toolBar.menu.findItem(R.id.editRealty).isVisible = false
         }
         toolBarTitle.text = getString(R.string.map)
         backButton.visible = true
